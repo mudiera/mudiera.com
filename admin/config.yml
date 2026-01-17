@@ -3,8 +3,8 @@ backend:
   repo: mudiera/mudiera.com
   branch: main
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
 
 collections:
   - name: site
@@ -25,3 +25,16 @@ collections:
             name: heroSubtitle
             widget: string
 
+  - name: pages
+    label: Pages
+    files:
+      - name: home
+        label: Home Page
+        file: index.html
+        fields:
+          - label: Title
+            name: title
+            widget: string
+          - label: Body
+            name: body
+            widget: markdown
