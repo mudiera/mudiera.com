@@ -32,3 +32,6 @@ ts-debug.log*
 
 # local data
 /data/*.json
+
+# local template repo (keep untracked)
+/mudiera_static_template/
