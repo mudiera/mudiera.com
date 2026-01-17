@@ -1,0 +1,27 @@
+backend:
+  name: github
+  repo: mudiera/mudiera.com
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: site
+    label: Site Settings
+    files:
+      - name: general
+        label: General
+        file: content/site.json
+        format: json
+        fields:
+          - label: Site Title
+            name: siteTitle
+            widget: string
+          - label: Hero Title
+            name: heroTitle
+            widget: string
+          - label: Hero Subtitle
+            name: heroSubtitle
+            widget: string
+
