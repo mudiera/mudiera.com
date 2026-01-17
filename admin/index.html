@@ -4,9 +4,59 @@
     <meta charset="utf-8" />
     <title>Mudiera CMS</title>
     <script>
-      window.CMS_CONFIG_URL = '/mudiera.com/admin/config.yml';
+      window.CMS_MANUAL_INIT = true;
     </script>
     <script src="https://unpkg.com/decap-cms@latest/dist/decap-cms.js"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', function () {
+        if (!window.CMS) return;
+        window.CMS.init({
+          config: {
+            backend: {
+              name: 'github',
+              repo: 'mudiera/mudiera.com',
+              branch: 'main'
+            },
+            media_folder: 'assets/uploads',
+            public_folder: '/mudiera.com/assets/uploads',
+            collections: [
+              {
+                name: 'site',
+                label: 'Site Settings',
+                files: [
+                  {
+                    name: 'general',
+                    label: 'General',
+                    file: 'content/site.json',
+                    format: 'json',
+                    fields: [
+                      { label: 'Site Title', name: 'siteTitle', widget: 'string' },
+                      { label: 'Hero Title', name: 'heroTitle', widget: 'string' },
+                      { label: 'Hero Subtitle', name: 'heroSubtitle', widget: 'string' }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: 'pages',
+                label: 'Pages',
+                files: [
+                  {
+                    name: 'home',
+                    label: 'Home Page',
+                    file: 'index.html',
+                    fields: [
+                      { label: 'Title', name: 'title', widget: 'string' },
+                      { label: 'Body', name: 'body', widget: 'markdown' }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        });
+      });
+    </script>
   </head>
   <body>
   </body>
