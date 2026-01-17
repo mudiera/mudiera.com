@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudiera | Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="logo-area">
+                <a href="index.html" class="logo">MUDIERA</a>
+                <p class="tagline">The London Edition</p>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="directory.html" class="nav-link">Business Directory</a></li>
+                    <li><a href="categories.html" class="nav-link">Categories</a></li>
+                    <li><a href="events.html" class="nav-link">Events</a></li>
+                    <li><a href="subscribe.html" class="nav-link">Subscribe</a></li>
+                    <li><a href="about.html" class="nav-link">About Us</a></li>
+                    <li><a href="careers.html" class="nav-link">Careers</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-title">Events &amp; Gatherings</h1>
+            <p class="page-subtitle">Workshops, meet-ups, and spaces curated for Muslim women across London and the UK.</p>
+        </div>
+    </section>
+
+    <section class="event-filter">
+        <div class="container">
+            <div class="search-wrapper">
+                <input type="text" class="search-input" placeholder="Search events, topics, or locations...">
+            </div>
+            <div class="event-pills">
+                <button class="pill active">All</button>
+                <button class="pill">Upcoming</button>
+                <button class="pill">This Month</button>
+                <button class="pill">London</button>
+                <button class="pill">Online</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="grid-block">
+        <div class="container card-grid">
+            <article class="card">
+                <div class="card-body">
+                    <div class="event-card-meta">
+                        <span class="event-date">Sat • 12 April</span> · <span class="event-location">East London</span>
+                    </div>
+                    <h3 class="card-title">Ramadan Reflections Circle</h3>
+                    <p class="card-text">An evening circle for Muslim women to reflect, journal, and reconnect in a calm, supportive space.</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-body">
+                    <div class="event-card-meta">
+                        <span class="event-date">Thu • 24 April</span> · <span class="event-location">Online</span>
+                    </div>
+                    <h3 class="card-title">Halal Business Basics</h3>
+                    <p class="card-text">A virtual session exploring how to start, structure, and grow a halal-aligned business.</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-body">
+                    <div class="event-card-meta">
+                        <span class="event-date">Sun • 5 May</span> · <span class="event-location">Central London</span>
+                    </div>
+                    <h3 class="card-title">Muslim Women in Tech Meetup</h3>
+                    <p class="card-text">Networking and knowledge sharing for Muslim women working in or entering the tech industry.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>MUDIERA</h3>
+                    <p>The first ever Muslim women’s digital ecosystem bringing together halal aligned brands, services, and opportunities.</p>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Sections</h4>
+                    <ul class="footer-links">
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="directory.html">Business Directory</a></li>
+                        <li><a href="subscribe.html">Subscribe</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Who is she?</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Newsletter</h4>
+                    <p class="newsletter-text">Subscribe for the latest updates.</p>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Template demo: Subscribed!');">
+                        <input type="email" placeholder="Your email address" class="newsletter-input" required>
+                        <button type="submit" class="btn-subscribe">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Mudiera. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
+
