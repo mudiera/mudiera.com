@@ -7,6 +7,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta name="google-site-verification" content="GOOGLE_SITE_VERIFICATION_TOKEN">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    <script>
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "CLARITY_PROJECT_ID");
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,6 +33,7 @@
                 <a href="index.html" class="logo">MUDIERA</a>
                 <p class="tagline">The London Edition</p>
             </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
             <nav class="main-nav">
                 <ul class="nav-list">
                     <li><a href="directory.html" class="nav-link">Home</a></li>
@@ -32,47 +49,45 @@
 
     <section class="page-hero">
         <div class="container">
-            <h1 class="page-title">Magnetic Hair Salon</h1>
-            <p class="page-subtitle">Private, hijab-friendly hair salon providing a safe space for Muslim women in London.</p>
+            <h1 class="page-title" id="profileName">Business Name</h1>
+            <p class="page-subtitle" id="profileSubtitle">Category and location details.</p>
         </div>
     </section>
 
     <main class="profile-wrapper">
         <div class="container profile-layout">
             <article class="profile-main">
-                <div class="profile-category">Health &amp; Beauty</div>
+                <div class="profile-category" id="profileCategory">Category</div>
                 <h2 class="profile-title">About this business</h2>
-                <p class="profile-description">
-                    Magnetic Hair Salon offers tailored haircare, styling, and treatments in a fully private, women-only environment.
-                    Designed with Muslim women in mind, appointments are strictly by booking to ensure comfort and discretion.
+                <p class="profile-description" id="profileDescription">
                 </p>
                 <div class="profile-meta">
-                    <p>Serving London and surrounding areas with a focus on halal, ethical, and inclusive service.</p>
+                    <p id="profileMeta"></p>
                 </div>
             </article>
 
             <aside class="profile-sidebar">
                 <h2 class="sidebar-heading">Contact &amp; Details</h2>
                 <div class="info-list">
-                    <div>
+                    <div id="websiteRow">
                         <span class="info-label">Website:</span>
-                        <a href="https://example.com" class="info-link">https://example.com</a>
+                        <a href="#" class="info-link" id="profileWebsite"></a>
                     </div>
-                    <div>
+                    <div id="phoneRow">
                         <span class="info-label">Phone:</span>
-                        <span class="info-value">+44 0000 000000</span>
+                        <span class="info-value" id="profilePhone"></span>
                     </div>
-                    <div>
+                    <div id="instagramRow">
                         <span class="info-label">Instagram:</span>
-                        <a href="#" class="info-link">@magneticsalon</a>
+                        <a href="#" class="info-link" id="profileInstagram"></a>
                     </div>
                     <div>
                         <span class="info-label">Location:</span>
-                        <span class="info-value">London, UK</span>
+                        <span class="info-value" id="profileLocation">Location</span>
                     </div>
                 </div>
                 <div class="map-placeholder">
-                    Map or location embed can be placed here in your CMS.
+                    <iframe id="profileMap" style="border:0;width:100%;height:260px;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </aside>
         </div>
@@ -117,6 +132,198 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var toggle = document.querySelector('.nav-toggle');
+            if (toggle) {
+                toggle.addEventListener('click', function () {
+                    document.body.classList.toggle('nav-open');
+                });
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+
+            const nameEl = document.getElementById('profileName');
+            const subtitleEl = document.getElementById('profileSubtitle');
+            const categoryEl = document.getElementById('profileCategory');
+            const descriptionEl = document.getElementById('profileDescription');
+            const metaEl = document.getElementById('profileMeta');
+            const locationEl = document.getElementById('profileLocation');
+
+            const websiteRow = document.getElementById('websiteRow');
+            const phoneRow = document.getElementById('phoneRow');
+            const instagramRow = document.getElementById('instagramRow');
+            const websiteEl = document.getElementById('profileWebsite');
+            const phoneEl = document.getElementById('profilePhone');
+            const instagramEl = document.getElementById('profileInstagram');
+            const mapEl = document.getElementById('profileMap');
+
+            const sheetUrl = 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/export?format=csv';
+
+            if (!id) {
+                websiteRow.style.display = 'none';
+                phoneRow.style.display = 'none';
+                instagramRow.style.display = 'none';
+                return;
+            }
+
+            function mapCategory(sourceCategory) {
+                if (sourceCategory === 'Fashion & Clothing') return 'Shopping';
+                if (sourceCategory === 'Coaching') return 'Services';
+                if (sourceCategory === 'Female Fitness') return 'Services';
+                if (sourceCategory === 'Travel & Tourism') return 'Services';
+                return sourceCategory;
+            }
+
+            function parseCsvRows(text) {
+                const lines = text.trim().split(/\r?\n/);
+                if (!lines.length) return [];
+                const headers = lines[0].split(',').map(h => h.trim());
+                const rows = [];
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i];
+                    if (!line.trim()) continue;
+                    const values = line.split(',');
+                    const row = {};
+                    headers.forEach((h, index) => {
+                        row[h] = values[index] ? values[index].trim() : '';
+                    });
+                    rows.push(row);
+                }
+                return rows;
+            }
+
+            function buildBusinessesFromSheetRows(rows) {
+                const businesses = [];
+                rows.forEach((row, index) => {
+                    const name = row['Brand Name'] || row['brand_name'] || row['Name'] || '';
+                    const description = row['Description / Speciality'] || row['Description'] || '';
+                    const location = row['Location'] || 'London';
+                    const explicitCategory = row['Category'] || '';
+                    const website = row['Website'] || '';
+                    const instagram = row['Instagram'] || '';
+                    const phone = row['Phone'] || '';
+                    const businessId = row['ID'] || (index + 1).toString();
+                    if (!name) return;
+                    let category = explicitCategory || 'Health & Beauty';
+                    if (!explicitCategory) {
+                        const d = description.toLowerCase();
+                        if (d.includes('food') || d.includes('restaurant') || d.includes('cafe') || d.includes('kebab') || d.includes('burger') || d.includes('chai')) {
+                            category = 'Food & Drinks';
+                        } else if (d.includes('fashion') || d.includes('clothing') || d.includes('abaya') || d.includes('hijab') || d.includes('boutique') || d.includes('modest wear') || d.includes('shop')) {
+                            category = 'Shopping';
+                        } else if (d.includes('event') || d.includes('retreat') || d.includes('workshop') || d.includes('tour') || d.includes('trip')) {
+                            category = 'Events';
+                        } else if (d.includes('community') || d.includes('circle') || d.includes('sisterhood') || d.includes('support group')) {
+                            category = 'Community';
+                        } else if (d.includes('coach') || d.includes('coaching') || d.includes('therapy') || d.includes('counselling') || d.includes('consult') || d.includes('fitness') || d.includes('class')) {
+                            category = 'Services';
+                        }
+                    }
+                    businesses.push({
+                        id: businessId,
+                        name: name,
+                        category: category,
+                        description: description,
+                        location: location,
+                        website: website,
+                        instagram: instagram,
+                        phone: phone
+                    });
+                });
+                return businesses;
+            }
+
+            function applyBusinessToProfile(business) {
+                const mappedCategory = mapCategory(business.category);
+                nameEl.textContent = business.name;
+                categoryEl.textContent = mappedCategory;
+                descriptionEl.textContent = business.description;
+                locationEl.textContent = business.location;
+                subtitleEl.textContent = mappedCategory + ' in ' + business.location;
+                metaEl.textContent = business.description;
+
+                if (mapEl) {
+                    mapEl.src = 'https://www.google.com/maps?q=' + encodeURIComponent(business.location || 'London, UK') + '&output=embed';
+                }
+
+                if (business.website) {
+                    websiteRow.style.display = '';
+                    websiteEl.href = business.website;
+                    websiteEl.textContent = business.website;
+                } else {
+                    websiteRow.style.display = 'none';
+                }
+
+                if (business.phone) {
+                    phoneRow.style.display = '';
+                    phoneEl.textContent = business.phone;
+                } else {
+                    phoneRow.style.display = 'none';
+                }
+
+                if (business.instagram) {
+                    instagramRow.style.display = '';
+                    instagramEl.href = business.instagram;
+                    instagramEl.textContent = business.instagram;
+                } else {
+                    instagramRow.style.display = 'none';
+                }
+            }
+
+            function loadFromSheet() {
+                if (!sheetUrl) {
+                    return Promise.reject();
+                }
+                return fetch(sheetUrl)
+                    .then(response => response.text())
+                    .then(text => {
+                        const rows = parseCsvRows(text);
+                        const businesses = buildBusinessesFromSheetRows(rows);
+                        const business = businesses.find(item => item.id === id);
+                        if (!business) {
+                            throw new Error('Not found in sheet');
+                        }
+                        applyBusinessToProfile(business);
+                    });
+            }
+
+            function loadFromJson() {
+                return fetch('new_businesses.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const business = data.find(item => item.id === id);
+                        if (!business) {
+                            throw new Error('Not found in JSON');
+                        }
+                        applyBusinessToProfile({
+                            id: business.id,
+                            name: business.name,
+                            category: business.category,
+                            description: business.description,
+                            location: business.location,
+                            website: '',
+                            instagram: '',
+                            phone: ''
+                        });
+                    });
+            }
+
+            loadFromSheet()
+                .catch(() => {
+                    websiteRow.style.display = 'none';
+                    phoneRow.style.display = 'none';
+                    instagramRow.style.display = 'none';
+                    return loadFromJson().catch(() => {});
+                });
+        });
+    </script>
 
 </body>
 </html>

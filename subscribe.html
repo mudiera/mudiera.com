@@ -7,6 +7,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta name="google-site-verification" content="GOOGLE_SITE_VERIFICATION_TOKEN">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    <script>
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "CLARITY_PROJECT_ID");
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,6 +33,7 @@
                 <a href="index.html" class="logo">MUDIERA</a>
                 <p class="tagline">The London Edition</p>
             </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
             <nav class="main-nav">
                 <ul class="nav-list">
                     <li><a href="directory.html" class="nav-link">Home</a></li>
@@ -41,8 +58,8 @@
         <div class="container">
             <p>Join the Mudiera mailing list for curated updates, features, and event highlights delivered to your inbox.</p>
             <p>We respect your time and privacy — no spam, just value.</p>
-            <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Template demo: Subscribed!');">
-                <input type="email" placeholder="Your email address" class="newsletter-input" required>
+            <form class="newsletter-form" id="subscribePageNewsletter">
+                <input type="email" name="email" placeholder="Your email address" class="newsletter-input" required>
                 <button type="submit" class="btn-subscribe">Subscribe</button>
             </form>
         </div>
@@ -76,8 +93,8 @@
                 <div>
                     <h4 class="footer-heading">Newsletter</h4>
                     <p class="newsletter-text">Subscribe for the latest updates.</p>
-                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Template demo: Subscribed!');">
-                        <input type="email" placeholder="Your email address" class="newsletter-input" required>
+                    <form class="newsletter-form" id="footerNewsletter">
+                        <input type="email" name="email" placeholder="Your email address" class="newsletter-input" required>
                         <button type="submit" class="btn-subscribe">Subscribe</button>
                     </form>
                 </div>
@@ -87,6 +104,78 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var toggle = document.querySelector('.nav-toggle');
+            if (toggle) {
+                toggle.addEventListener('click', function () {
+                    document.body.classList.toggle('nav-open');
+                });
+            }
+        });
+    </script>
+
+    <script>
+        (function () {
+            var MAKE_WEBHOOK_URL = "https://hook.eu1.make.com/YOUR_WEBHOOK_ID";
+            var BREVO_FORM_URL = "https://YOUR_BREVO_SUBSCRIPTION_URL";
+
+            function sendToMake(payload) {
+                if (!MAKE_WEBHOOK_URL || MAKE_WEBHOOK_URL.indexOf("YOUR_WEBHOOK_ID") !== -1) {
+                    return;
+                }
+                try {
+                    fetch(MAKE_WEBHOOK_URL, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    });
+                } catch (e) {
+                }
+            }
+
+            function submitToBrevo(email, source) {
+                if (!BREVO_FORM_URL || BREVO_FORM_URL.indexOf("YOUR_BREVO_SUBSCRIPTION_URL") !== -1) {
+                    return;
+                }
+                try {
+                    var formData = new FormData();
+                    formData.append("EMAIL", email);
+                    formData.append("SOURCE", source);
+                    fetch(BREVO_FORM_URL, {
+                        method: "POST",
+                        body: formData,
+                        mode: "no-cors"
+                    });
+                } catch (e) {
+                }
+            }
+
+            function attachHandler(form, source) {
+                if (!form) return;
+                form.addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    var emailInput = form.querySelector('input[type="email"]');
+                    var email = emailInput ? emailInput.value : "";
+                    if (!email) {
+                        return;
+                    }
+                    sendToMake({
+                        type: "newsletter_subscribe",
+                        email: email,
+                        source: source
+                    });
+                    submitToBrevo(email, source);
+                    form.reset();
+                    alert("Subscribed!");
+                });
+            }
+
+            attachHandler(document.getElementById("subscribePageNewsletter"), "subscribe_page");
+            attachHandler(document.getElementById("footerNewsletter"), "subscribe_footer");
+        })();
+    </script>
 
 </body>
 </html>

@@ -7,6 +7,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta name="google-site-verification" content="GOOGLE_SITE_VERIFICATION_TOKEN">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    <script>
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "CLARITY_PROJECT_ID");
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,6 +33,7 @@
                 <a href="index.html" class="logo">MUDIERA</a>
                 <p class="tagline">The London Edition</p>
             </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
             <nav class="main-nav">
                 <ul class="nav-list">
                     <li><a href="directory.html" class="nav-link">Home</a></li>
@@ -41,8 +58,8 @@
         <div class="container two-column">
             <div class="col">
                 <h2 class="section-heading">Say salaam</h2>
-                <p class="section-text">Use this block in your website builder to embed a contact form or inbox of your choice.</p>
-                <p class="section-text">You can also direct brands and businesses here to request a listing or explore partnership opportunities.</p>
+                <p class="section-text">Use the form below to reach the Mudiera team, request a listing, or explore partnership opportunities.</p>
+                <iframe src="https://docs.google.com/forms/d/GOOGLE_CONTACT_FORM_ID/viewform?embedded=true" width="100%" height="650" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
             </div>
             <div class="col">
                 <h2 class="section-heading">Contact details</h2>
@@ -51,6 +68,9 @@
                     <li><strong>Instagram:</strong> @mudiera</li>
                     <li><strong>Location:</strong> London, United Kingdom</li>
                 </ul>
+                <div style="margin-top:24px;">
+                    <iframe src="https://www.google.com/maps?q=London%2C%20United%20Kingdom&output=embed" width="100%" height="260" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
             </div>
         </div>
     </main>
@@ -94,6 +114,17 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var toggle = document.querySelector('.nav-toggle');
+            if (toggle) {
+                toggle.addEventListener('click', function () {
+                    document.body.classList.toggle('nav-open');
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>

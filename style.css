@@ -377,6 +377,17 @@ ul {
   background-color: #000;
 }
 
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
 .copyright {
   border-top: 1px solid rgba(255,255,255,0.1);
   padding-top: 30px;
@@ -606,70 +617,6 @@ ul {
   background-color: var(--text-main);
 }
 
-/* Responsive */
-@media (min-width: 992px) {
-  /* Sidebar Layout for Desktop */
-  body {
-    padding-left: 280px; /* Space for fixed sidebar */
-  }
-
-  .site-header {
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 280px;
-    height: 100vh;
-    overflow-y: auto;
-    border-right: 1px solid #e5e7eb;
-    background-color: #fff; /* Ensure opacity */
-    box-shadow: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .header-inner {
-    padding: 40px 30px;
-    width: 100%;
-    min-height: 100%;
-    justify-content: flex-start;
-    align-items: center; /* Center logo, can be flex-start for left align */
-  }
-
-  /* Reset container width inside header */
-  .site-header .container {
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  .logo-area {
-    margin-bottom: 50px;
-    text-align: center;
-    width: 100%;
-  }
-
-  .main-nav {
-    border: none;
-    padding: 0;
-    width: 100%;
-    margin-bottom: auto; /* Push content below if needed, or just let it flow */
-  }
-
-  .nav-list {
-    flex-direction: column;
-    gap: 25px;
-    align-items: center; /* Center links */
-  }
-
-  .nav-link {
-    font-size: 1rem;
-    display: block;
-    padding: 5px 0;
-  }
-}
-
 @media (max-width: 991px) {
   .logo {
     font-size: 2.2rem;
@@ -679,10 +626,19 @@ ul {
     font-size: 2rem;
   }
   
+  .nav-toggle {
+    display: block;
+  }
+
   .nav-list {
+    display: none;
     flex-direction: column;
     align-items: center;
     gap: 15px;
+  }
+
+  .nav-open .nav-list {
+    display: flex;
   }
   .footer-grid {
     text-align: center;

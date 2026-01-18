@@ -8,7 +8,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
-    <!-- Styles -->
+    <meta name="google-site-verification" content="GOOGLE_SITE_VERIFICATION_TOKEN">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    <script>
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "CLARITY_PROJECT_ID");
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,7 +37,7 @@
                 <a href="index.html" class="logo">MUDIERA</a>
                 <p class="tagline">The London Edition</p>
             </div>
-            
+            <button class="nav-toggle" aria-label="Toggle navigation">Menu</button>
             <nav class="main-nav">
                 <ul class="nav-list">
                     <li><a href="directory.html" class="nav-link">Home</a></li>
@@ -41,22 +56,17 @@
          ========================================= -->
     <section class="hero-block">
         <div class="container">
-            <h1 class="hero-title">Mudiera</h1>
-            <p class="hero-text">London Edition</p>
+            <h1 class="hero-title">Muslim Women’s Business Directory &amp; Ecosystem</h1>
+            <p class="hero-text">Mudiera is an ecosystem and community hub connecting Muslim women with trusted, halal aligned businesses, services, and opportunities across London and the UK.</p>
         </div>
     </section>
 
-    <!-- =========================================
-         BLOCK: Filter & Search
-         ========================================= -->
     <section class="filter-block">
         <div class="container">
-            <!-- Search -->
             <div class="search-wrapper">
                 <input type="text" id="searchInput" class="search-input" placeholder="Search businesses, services, or products...">
             </div>
 
-            <!-- Categories -->
             <div class="category-pills" id="categoryFilters">
                 <button class="pill active">All</button>
                 <button class="pill">Health & Beauty</button>
@@ -69,125 +79,19 @@
         </div>
     </section>
 
-    <!-- =========================================
-         BLOCK: Business Grid
-         ========================================= -->
+    <section class="ads-block">
+        <div class="container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="0000000000"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+        </div>
+    </section>
+
     <section class="grid-block">
         <div class="container card-grid" id="businessGrid">
-            
-            <!-- 
-            =========================================
-            INSTRUCTION: TO ADD A NEW BUSINESS
-            1. Copy the code from <article> to </article> below.
-            2. Paste it right after the last </article> tag.
-            3. Change the text in white to your new business details.
-            ========================================= 
-            -->
-
-            <!-- Card Item 1: START COPYING HERE -->
-            <article class="card">
-                <div class="card-body">
-                    <!-- Category Name (e.g., Health & Beauty) -->
-                    <span class="card-meta">Health & Beauty</span>
-                    
-                    <!-- Business Name -->
-                    <h3 class="card-title"><a href="profile.html">Magnetic Hair Salon</a></h3>
-                    
-                    <!-- Description -->
-                    <p class="card-text">Hair salon with a private lounge for Muslim women offering cuts, colours, and treatments.</p>
-                    
-                    <div class="card-footer">
-                        <svg class="icon-loc" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                        <!-- Location -->
-                        <span>London, UK</span>
-                    </div>
-                </div>
-            </article>
-            <!-- Card Item 1: END COPYING HERE -->
-
-            <!-- Card Item 2 -->
-            <article class="card">
-                <div class="card-body">
-                    <span class="card-meta">Food & Drinks</span>
-                    <h3 class="card-title">Halal Gems</h3>
-                    <p class="card-text">Discovering the best halal dining experiences in London and beyond.</p>
-                    <div class="card-footer">
-                        <svg class="icon-loc" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                        <span>London, UK</span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Card Item 3 -->
-            <article class="card">
-                <div class="card-body">
-                    <span class="card-meta">Shopping</span>
-                    <h3 class="card-title">Modanisa</h3>
-                    <p class="card-text">Modern hijab fashion and modest clothing for women.</p>
-                    <div class="card-footer">
-                        <svg class="icon-loc" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                        <span>Online / UK</span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Card Item 4 -->
-            <article class="card">
-                <div class="card-body">
-                    <span class="card-meta">Services</span>
-                    <h3 class="card-title">Muslim Mama</h3>
-                    <p class="card-text">A community platform for Muslim mothers to connect and share experiences.</p>
-                    <div class="card-footer">
-                        <svg class="icon-loc" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                        <span>London, UK</span>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Card Item 5 -->
-            <article class="card">
-                <div class="card-body">
-                    <span class="card-meta">Community</span>
-                    <h3 class="card-title">Emerald Network</h3>
-                    <p class="card-text">Connecting professionals and promoting halal social networking events.</p>
-                    <div class="card-footer">
-                        <svg class="icon-loc" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                        <span>London, UK</span>
-                    </div>
-                </div>
-            </article>
-
-             <!-- Card Item 6 -->
-             <article class="card">
-                <div class="card-body">
-                    <span class="card-meta">Shopping</span>
-                    <h3 class="card-title">Aab Collection</h3>
-                    <p class="card-text">Premium modest fashion brand offering contemporary clothing for women.</p>
-                    <div class="card-footer">
-                        <svg class="icon-loc" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                        <span>London, UK</span>
-                    </div>
-                </div>
-            </article>
-
         </div>
     </section>
 
@@ -244,17 +148,164 @@
         </div>
     </footer>
 
-    <!-- Search & Filter Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var toggle = document.querySelector('.nav-toggle');
+            if (toggle) {
+                toggle.addEventListener('click', function () {
+                    document.body.classList.toggle('nav-open');
+                });
+            }
+        });
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const grid = document.getElementById('businessGrid');
             const searchInput = document.getElementById('searchInput');
             const categoryFilters = document.getElementById('categoryFilters');
-            // Select cards only within the businessGrid to avoid selecting other cards if any
-            const grid = document.getElementById('businessGrid');
-            const cards = grid ? grid.querySelectorAll('.card') : [];
             const pills = categoryFilters ? categoryFilters.querySelectorAll('.pill') : [];
+            const sheetUrl = 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/export?format=csv';
+
+            function mapCategory(sourceCategory) {
+                if (sourceCategory === 'Fashion & Clothing') return 'Shopping';
+                if (sourceCategory === 'Coaching') return 'Services';
+                if (sourceCategory === 'Female Fitness') return 'Services';
+                if (sourceCategory === 'Travel & Tourism') return 'Services';
+                return sourceCategory;
+            }
+
+            function createCard(business) {
+                const article = document.createElement('article');
+                article.className = 'card';
+
+                const mappedCategory = mapCategory(business.category);
+
+                article.innerHTML = `
+                    <div class="card-body">
+                        <span class="card-meta">${mappedCategory}</span>
+                        <h3 class="card-title">
+                            <a href="profile.html?id=${encodeURIComponent(business.id)}">${business.name}</a>
+                        </h3>
+                        <p class="card-text">${business.description}</p>
+                        <div class="card-footer">
+                            <svg class="icon-loc" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                            </svg>
+                            <span>${business.location}</span>
+                        </div>
+                    </div>
+                `;
+
+                return article;
+            }
+
+            function renderBusinesses(businesses) {
+                if (!grid) return;
+                grid.innerHTML = '';
+                businesses.forEach(business => {
+                    grid.appendChild(createCard(business));
+                });
+            }
+
+            function parseCsvRows(text) {
+                const lines = text.trim().split(/\r?\n/);
+                if (!lines.length) return [];
+                const headers = lines[0].split(',').map(h => h.trim());
+                const rows = [];
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i];
+                    if (!line.trim()) continue;
+                    const values = line.split(',');
+                    const row = {};
+                    headers.forEach((h, index) => {
+                        row[h] = values[index] ? values[index].trim() : '';
+                    });
+                    rows.push(row);
+                }
+                return rows;
+            }
+
+            function buildBusinessesFromSheetRows(rows) {
+                const businesses = [];
+                rows.forEach((row, index) => {
+                    const name = row['Brand Name'] || row['brand_name'] || row['Name'] || '';
+                    const description = row['Description / Speciality'] || row['Description'] || '';
+                    const location = row['Location'] || 'London';
+                    const explicitCategory = row['Category'] || '';
+                    const website = row['Website'] || '';
+                    const instagram = row['Instagram'] || '';
+                    const phone = row['Phone'] || '';
+                    const id = row['ID'] || (index + 1).toString();
+                    if (!name) return;
+                    let category = explicitCategory || 'Health & Beauty';
+                    if (!explicitCategory) {
+                        const d = description.toLowerCase();
+                        if (d.includes('food') || d.includes('restaurant') || d.includes('cafe') || d.includes('kebab') || d.includes('burger') || d.includes('chai')) {
+                            category = 'Food & Drinks';
+                        } else if (d.includes('fashion') || d.includes('clothing') || d.includes('abaya') || d.includes('hijab') || d.includes('boutique') || d.includes('modest wear') || d.includes('shop')) {
+                            category = 'Shopping';
+                        } else if (d.includes('event') || d.includes('retreat') || d.includes('workshop') || d.includes('tour') || d.includes('trip')) {
+                            category = 'Events';
+                        } else if (d.includes('community') || d.includes('circle') || d.includes('sisterhood') || d.includes('support group')) {
+                            category = 'Community';
+                        } else if (d.includes('coach') || d.includes('coaching') || d.includes('therapy') || d.includes('counselling') || d.includes('consult') || d.includes('fitness') || d.includes('class')) {
+                            category = 'Services';
+                        }
+                    }
+                    businesses.push({
+                        id: id,
+                        name: name,
+                        category: category,
+                        description: description,
+                        location: location,
+                        website: website,
+                        instagram: instagram,
+                        phone: phone
+                    });
+                });
+                return businesses;
+            }
+
+            function loadBusinesses() {
+                if (sheetUrl) {
+                    fetch(sheetUrl)
+                        .then(response => response.text())
+                        .then(text => {
+                            const rows = parseCsvRows(text);
+                            const businesses = buildBusinessesFromSheetRows(rows);
+                            renderBusinesses(businesses);
+                            filterBusinesses();
+                        })
+                        .catch(error => {
+                            console.error('Error loading sheet data:', error);
+                            fetch('new_businesses.json')
+                                .then(response => response.json())
+                                .then(data => {
+                                    renderBusinesses(data);
+                                    filterBusinesses();
+                                })
+                                .catch(jsonError => {
+                                    console.error('Error loading fallback JSON data:', jsonError);
+                                });
+                        });
+                } else {
+                    fetch('new_businesses.json')
+                        .then(response => response.json())
+                        .then(data => {
+                            renderBusinesses(data);
+                            filterBusinesses();
+                        })
+                        .catch(error => {
+                            console.error('Error loading businesses data:', error);
+                        });
+                }
+            }
 
             function filterBusinesses() {
+                if (!grid) return;
+                const cards = grid.querySelectorAll('.card');
                 const searchTerm = searchInput.value.toLowerCase();
                 const activePill = categoryFilters.querySelector('.pill.active');
                 const activeCategory = activePill ? activePill.textContent.trim() : 'All';
@@ -287,14 +338,12 @@
 
             pills.forEach(pill => {
                 pill.addEventListener('click', function() {
-                    // Remove active class from all
                     pills.forEach(p => p.classList.remove('active'));
-                    // Add to clicked
                     this.classList.add('active');
-                    // Filter
                     filterBusinesses();
                 });
             });
+            loadBusinesses();
         });
     </script>
 
