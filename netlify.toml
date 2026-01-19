@@ -1,0 +1,5 @@
+[build]
+  publish = "."
+
+[dev]
+  command = "echo 'No build command needed'"

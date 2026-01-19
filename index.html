@@ -269,38 +269,35 @@
             }
 
             function loadBusinesses() {
-                if (sheetUrl) {
-                    fetch(sheetUrl)
-                        .then(response => response.text())
-                        .then(text => {
-                            const rows = parseCsvRows(text);
-                            const businesses = buildBusinessesFromSheetRows(rows);
-                            renderBusinesses(businesses);
-                            filterBusinesses();
-                        })
-                        .catch(error => {
-                            console.error('Error loading sheet data:', error);
-                            fetch('new_businesses.json')
-                                .then(response => response.json())
-                                .then(data => {
-                                    renderBusinesses(data);
-                                    filterBusinesses();
-                                })
-                                .catch(jsonError => {
-                                    console.error('Error loading fallback JSON data:', jsonError);
-                                });
-                        });
-                } else {
-                    fetch('new_businesses.json')
-                        .then(response => response.json())
-                        .then(data => {
-                            renderBusinesses(data);
-                            filterBusinesses();
-                        })
-                        .catch(error => {
-                            console.error('Error loading businesses data:', error);
-                        });
-                }
+                // Fetch from local JSON (acting as external database cache)
+                fetch('businesses.json?v=2')
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Normalize data if needed (ensure consistent keys)
+                        const list = data.businesses || data;
+                        const businesses = list.map(item => ({
+                            id: item.id,
+                            name: item.name || item['Brand Name'],
+                            category: item.category || item['Category'] || 'Health & Beauty',
+                            description: item.description || item['Description / Speciality'] || '',
+                            location: item.location || item['Location'] || 'London',
+                            contact: item.contact || '',
+                            source: item.source || '',
+                            website: item.website || '',
+                            instagram: item.instagram || ''
+                        }));
+                        
+                        renderBusinesses(businesses);
+                        filterBusinesses();
+                    })
+                    .catch(error => {
+                        console.error('Error loading businesses data:', error);
+                        // Fallback or show error message
+                        if (grid) grid.innerHTML = '<p class="error-msg">Unable to load directory listings. Please try again later.</p>';
+                    });
             }
 
             function filterBusinesses() {
@@ -343,6 +340,19 @@
                     filterBusinesses();
                 });
             });
+
+            // Check for category URL param
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialCategory = urlParams.get('category');
+            if (initialCategory) {
+                pills.forEach(pill => {
+                    if (pill.textContent.trim() === initialCategory) {
+                        pills.forEach(p => p.classList.remove('active'));
+                        pill.classList.add('active');
+                    }
+                });
+            }
+
             loadBusinesses();
             
             // Mobile Navigation Toggle

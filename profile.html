@@ -164,14 +164,71 @@
             const instagramEl = document.getElementById('profileInstagram');
             const mapEl = document.getElementById('profileMap');
 
-            const sheetUrl = 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/export?format=csv';
+            // Fetch from local JSON (acting as external database cache)
+            fetch('businesses.json?v=2')
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    // Find business by ID
+                    const list = data.businesses || data;
+                    const business = list.find(b => b.id === id);
+                    
+                    if (!business) {
+                        document.querySelector('.profile-layout').innerHTML = '<p class="error-msg">Business not found.</p>';
+                        return;
+                    }
 
-            if (!id) {
-                websiteRow.style.display = 'none';
-                phoneRow.style.display = 'none';
-                instagramRow.style.display = 'none';
-                return;
-            }
+                    // Populate Data
+                    nameEl.textContent = business.name || business['Brand Name'];
+                    subtitleEl.textContent = `${business.category || 'Business'} in ${business.location || 'London'}`;
+                    categoryEl.textContent = mapCategory(business.category || 'Business');
+                    descriptionEl.textContent = business.description || business['Description / Speciality'] || 'No description available.';
+                    
+                    // Meta / Extra info
+                    const contact = business.contact || business['Contact'] || '';
+                    const source = business.source || business['Source'] || '';
+                    metaEl.textContent = contact ? `Contact: ${contact}` : '';
+
+                    locationEl.textContent = business.location || 'London';
+
+                    // Links
+                    const webLink = business.website || '';
+                    const instaLink = business.instagram || '';
+                    const phoneVal = business.phone || '';
+
+                    if (webLink) {
+                        websiteEl.href = webLink;
+                        websiteEl.textContent = 'Visit Website';
+                        websiteRow.style.display = 'flex';
+                    } else {
+                        websiteRow.style.display = 'none';
+                    }
+
+                    if (instaLink) {
+                        instagramEl.href = instaLink;
+                        instagramEl.textContent = 'Visit Instagram';
+                        instagramRow.style.display = 'flex';
+                    } else {
+                        instagramRow.style.display = 'none';
+                    }
+
+                    if (phoneVal) {
+                        phoneEl.textContent = phoneVal;
+                        phoneRow.style.display = 'flex';
+                    } else {
+                        phoneRow.style.display = 'none';
+                    }
+                    
+                    // Maps (optional placeholder logic)
+                    // If we had coordinates, we could update the iframe. 
+                    // For now, keep default or hide.
+                })
+                .catch(error => {
+                    console.error('Error loading business profile:', error);
+                    document.querySelector('.profile-layout').innerHTML = '<p class="error-msg">Error loading profile.</p>';
+                });
 
             function mapCategory(sourceCategory) {
                 if (sourceCategory === 'Fashion & Clothing') return 'Shopping';
@@ -180,148 +237,6 @@
                 if (sourceCategory === 'Travel & Tourism') return 'Services';
                 return sourceCategory;
             }
-
-            function parseCsvRows(text) {
-                const lines = text.trim().split(/\r?\n/);
-                if (!lines.length) return [];
-                const headers = lines[0].split(',').map(h => h.trim());
-                const rows = [];
-                for (let i = 1; i < lines.length; i++) {
-                    const line = lines[i];
-                    if (!line.trim()) continue;
-                    const values = line.split(',');
-                    const row = {};
-                    headers.forEach((h, index) => {
-                        row[h] = values[index] ? values[index].trim() : '';
-                    });
-                    rows.push(row);
-                }
-                return rows;
-            }
-
-            function buildBusinessesFromSheetRows(rows) {
-                const businesses = [];
-                rows.forEach((row, index) => {
-                    const name = row['Brand Name'] || row['brand_name'] || row['Name'] || '';
-                    const description = row['Description / Speciality'] || row['Description'] || '';
-                    const location = row['Location'] || 'London';
-                    const explicitCategory = row['Category'] || '';
-                    const website = row['Website'] || '';
-                    const instagram = row['Instagram'] || '';
-                    const phone = row['Phone'] || '';
-                    const businessId = row['ID'] || (index + 1).toString();
-                    if (!name) return;
-                    let category = explicitCategory || 'Health & Beauty';
-                    if (!explicitCategory) {
-                        const d = description.toLowerCase();
-                        if (d.includes('food') || d.includes('restaurant') || d.includes('cafe') || d.includes('kebab') || d.includes('burger') || d.includes('chai')) {
-                            category = 'Food & Drinks';
-                        } else if (d.includes('fashion') || d.includes('clothing') || d.includes('abaya') || d.includes('hijab') || d.includes('boutique') || d.includes('modest wear') || d.includes('shop')) {
-                            category = 'Shopping';
-                        } else if (d.includes('event') || d.includes('retreat') || d.includes('workshop') || d.includes('tour') || d.includes('trip')) {
-                            category = 'Events';
-                        } else if (d.includes('community') || d.includes('circle') || d.includes('sisterhood') || d.includes('support group')) {
-                            category = 'Community';
-                        } else if (d.includes('coach') || d.includes('coaching') || d.includes('therapy') || d.includes('counselling') || d.includes('consult') || d.includes('fitness') || d.includes('class')) {
-                            category = 'Services';
-                        }
-                    }
-                    businesses.push({
-                        id: businessId,
-                        name: name,
-                        category: category,
-                        description: description,
-                        location: location,
-                        website: website,
-                        instagram: instagram,
-                        phone: phone
-                    });
-                });
-                return businesses;
-            }
-
-            function applyBusinessToProfile(business) {
-                const mappedCategory = mapCategory(business.category);
-                nameEl.textContent = business.name;
-                categoryEl.textContent = mappedCategory;
-                descriptionEl.textContent = business.description;
-                locationEl.textContent = business.location;
-                subtitleEl.textContent = mappedCategory + ' in ' + business.location;
-                metaEl.textContent = business.description;
-
-                if (mapEl) {
-                    mapEl.src = 'https://www.google.com/maps?q=' + encodeURIComponent(business.location || 'London, UK') + '&output=embed';
-                }
-
-                if (business.website) {
-                    websiteRow.style.display = '';
-                    websiteEl.href = business.website;
-                    websiteEl.textContent = business.website;
-                } else {
-                    websiteRow.style.display = 'none';
-                }
-
-                if (business.phone) {
-                    phoneRow.style.display = '';
-                    phoneEl.textContent = business.phone;
-                } else {
-                    phoneRow.style.display = 'none';
-                }
-
-                if (business.instagram) {
-                    instagramRow.style.display = '';
-                    instagramEl.href = business.instagram;
-                    instagramEl.textContent = business.instagram;
-                } else {
-                    instagramRow.style.display = 'none';
-                }
-            }
-
-            function loadFromSheet() {
-                if (!sheetUrl) {
-                    return Promise.reject();
-                }
-                return fetch(sheetUrl)
-                    .then(response => response.text())
-                    .then(text => {
-                        const rows = parseCsvRows(text);
-                        const businesses = buildBusinessesFromSheetRows(rows);
-                        const business = businesses.find(item => item.id === id);
-                        if (!business) {
-                            throw new Error('Not found in sheet');
-                        }
-                        applyBusinessToProfile(business);
-                    });
-            }
-
-            function loadFromJson() {
-                return fetch('new_businesses.json')
-                    .then(response => response.json())
-                    .then(data => {
-                        const business = data.find(item => item.id === id);
-                        if (!business) {
-                            throw new Error('Not found in JSON');
-                        }
-                        applyBusinessToProfile({
-                            id: business.id,
-                            name: business.name,
-                            category: business.category,
-                            description: business.description,
-                            location: business.location,
-                            website: '',
-                            instagram: '',
-                            phone: ''
-                        });
-                    });
-            }
-
-            loadFromSheet()
-                .catch(() => {
-                    websiteRow.style.display = 'none';
-                    phoneRow.style.display = 'none';
-                    instagramRow.style.display = 'none';
-                    return loadFromJson().catch(() => {});
-                });
 
             // Mobile Navigation Toggle
             const navToggle = document.querySelector('.nav-toggle');

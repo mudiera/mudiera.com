@@ -56,9 +56,9 @@
     <section class="filter-block">
         <div class="container">
             <div class="search-wrapper">
-                <input type="text" class="search-input" placeholder="Search businesses, services, or products...">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search businesses, services, or products...">
             </div>
-            <div class="category-pills">
+            <div class="category-pills" id="categoryFilters">
                 <button class="pill active">All</button>
                 <button class="pill">Health & Beauty</button>
                 <button class="pill">Food & Drinks</button>
@@ -71,51 +71,8 @@
     </section>
 
     <section class="grid-block">
-        <div class="container card-grid">
-            <article class="card">
-                <div class="card-body">
-                    <span class="card-meta">Health & Beauty</span>
-                    <h3 class="card-title">Magnetic Hair Salon</h3>
-                    <p class="card-text">Hair salon with a private lounge for Muslim women offering cuts, colours, and treatments.</p>
-                    <div class="card-footer">
-                        <svg class="icon-loc" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                        <span>London, UK</span>
-                    </div>
-                </div>
-            </article>
-
-            <article class="card">
-                <div class="card-body">
-                    <span class="card-meta">Food & Drinks</span>
-                    <h3 class="card-title">Halal Gems</h3>
-                    <p class="card-text">Discovering the best halal dining experiences in London and beyond.</p>
-                    <div class="card-footer">
-                        <svg class="icon-loc" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                        <span>London, UK</span>
-                    </div>
-                </div>
-            </article>
-
-            <article class="card">
-                <div class="card-body">
-                    <span class="card-meta">Shopping</span>
-                    <h3 class="card-title">Modanisa</h3>
-                    <p class="card-text">Modern hijab fashion and modest clothing for women.</p>
-                    <div class="card-footer">
-                        <svg class="icon-loc" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                        <span>Online / UK</span>
-                    </div>
-                </div>
-            </article>
+        <div class="container card-grid" id="businessGrid">
+            <!-- Content will be populated by JS -->
         </div>
     </section>
 
@@ -161,6 +118,130 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const grid = document.getElementById('businessGrid');
+            const searchInput = document.getElementById('searchInput');
+            const categoryFilters = document.getElementById('categoryFilters');
+            const pills = categoryFilters ? categoryFilters.querySelectorAll('.pill') : [];
+
+            function mapCategory(sourceCategory) {
+                if (sourceCategory === 'Fashion & Clothing') return 'Shopping';
+                if (sourceCategory === 'Coaching') return 'Services';
+                if (sourceCategory === 'Female Fitness') return 'Services';
+                if (sourceCategory === 'Travel & Tourism') return 'Services';
+                return sourceCategory;
+            }
+
+            function createCard(business) {
+                const article = document.createElement('article');
+                article.className = 'card';
+                const mappedCategory = mapCategory(business.category);
+                
+                article.innerHTML = `
+                    <div class="card-body">
+                        <span class="card-meta">${mappedCategory}</span>
+                        <h3 class="card-title">
+                            <a href="profile.html?id=${encodeURIComponent(business.id)}">${business.name}</a>
+                        </h3>
+                        <p class="card-text">${business.description}</p>
+                        <div class="card-footer">
+                            <svg class="icon-loc" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                            </svg>
+                            <span>${business.location}</span>
+                        </div>
+                    </div>
+                `;
+                return article;
+            }
+
+            function renderBusinesses(businesses) {
+                if (!grid) return;
+                grid.innerHTML = '';
+                businesses.forEach(business => {
+                    grid.appendChild(createCard(business));
+                });
+            }
+
+            function filterBusinesses() {
+                if (!grid) return;
+                const cards = grid.querySelectorAll('.card');
+                const searchTerm = searchInput.value.toLowerCase();
+                const activePill = categoryFilters.querySelector('.pill.active');
+                const activeCategory = activePill ? activePill.textContent.trim() : 'All';
+
+                cards.forEach(card => {
+                    const title = card.querySelector('.card-title').textContent.toLowerCase();
+                    const meta = card.querySelector('.card-meta').textContent;
+                    const text = card.querySelector('.card-text').textContent.toLowerCase();
+                    const footerSpan = card.querySelector('.card-footer span');
+                    const location = footerSpan ? footerSpan.textContent.toLowerCase() : '';
+
+                    const matchesSearch = title.includes(searchTerm) || 
+                                          text.includes(searchTerm) || 
+                                          location.includes(searchTerm);
+                    
+                    const matchesCategory = activeCategory === 'All' || meta === activeCategory;
+
+                    if (matchesSearch && matchesCategory) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', filterBusinesses);
+            }
+
+            pills.forEach(pill => {
+                pill.addEventListener('click', function() {
+                    pills.forEach(p => p.classList.remove('active'));
+                    this.classList.add('active');
+                    filterBusinesses();
+                });
+            });
+
+            // Check for category URL param
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialCategory = urlParams.get('category');
+            if (initialCategory) {
+                pills.forEach(pill => {
+                    if (pill.textContent.trim() === initialCategory) {
+                        pills.forEach(p => p.classList.remove('active'));
+                        pill.classList.add('active');
+                    }
+                });
+            }
+
+            // Fetch from local JSON
+            fetch('businesses.json?v=2')
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    const list = data.businesses || data;
+                    const businesses = list.map(item => ({
+                        id: item.id,
+                        name: item.name || item['Brand Name'],
+                        category: item.category || item['Category'] || 'Health & Beauty',
+                        description: item.description || item['Description / Speciality'] || '',
+                        location: item.location || item['Location'] || 'London',
+                        contact: item.contact || '',
+                        source: item.source || '',
+                        website: item.website || '',
+                        instagram: item.instagram || ''
+                    }));
+                    renderBusinesses(businesses);
+                    filterBusinesses();
+                })
+                .catch(error => {
+                    console.error('Error loading businesses data:', error);
+                    if (grid) grid.innerHTML = '<p class="error-msg">Unable to load directory listings. Please try again later.</p>';
+                });
+
             // Mobile Navigation Toggle
             const navToggle = document.querySelector('.nav-toggle');
             const mainNav = document.querySelector('.main-nav');

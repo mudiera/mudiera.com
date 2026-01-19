@@ -1,40 +1,28 @@
 backend:
-  name: github
-  repo: mudiera/mudiera.com
+  name: git-gateway
   branch: main
 
-media_folder: "assets/uploads"
-public_folder: "/assets/uploads"
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
 
 collections:
-  - name: site
-    label: Site Settings
+  - name: "data"
+    label: "Data"
     files:
-      - name: general
-        label: General
-        file: content/site.json
-        format: json
+      - name: "businesses"
+        label: "Businesses Directory"
+        file: "businesses.json"
         fields:
-          - label: Site Title
-            name: siteTitle
-            widget: string
-          - label: Hero Title
-            name: heroTitle
-            widget: string
-          - label: Hero Subtitle
-            name: heroSubtitle
-            widget: string
-
-  - name: pages
-    label: Pages
-    files:
-      - name: home
-        label: Home Page
-        file: index.html
-        fields:
-          - label: Title
-            name: title
-            widget: string
-          - label: Body
-            name: body
-            widget: markdown
+          - label: "Businesses"
+            name: "businesses"
+            widget: "list"
+            fields:
+              - {label: "ID", name: "id", widget: "string"}
+              - {label: "Name", name: "name", widget: "string"}
+              - {label: "Category", name: "category", widget: "select", options: ["Health & Beauty", "Food & Drinks", "Shopping", "Services", "Events", "Community", "Other"]}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Location", name: "location", widget: "string"}
+              - {label: "Contact", name: "contact", widget: "string", required: false}
+              - {label: "Source", name: "source", widget: "string", required: false}
+              - {label: "Website", name: "website", widget: "string", required: false}
+              - {label: "Instagram", name: "instagram", widget: "string", required: false}
