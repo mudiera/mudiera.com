@@ -152,13 +152,46 @@ ul {
   color: var(--brand-deep);
 }
 
+/* Mobile Nav Logic */
+@media (max-width: 991px) {
+  .nav-toggle {
+    display: block;
+  }
+  
+  .main-nav {
+    display: none;
+    /* other mobile styles... */
+  }
+
+  .main-nav.active {
+    display: block;
+  }
+}
+
+.add-listing-btn {
+  display: inline-block;
+  background-color: var(--brand-deep);
+  color: var(--text-white);
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  position: absolute;
+  right: 20px;
+  top: 25px;
+}
+
+.add-listing-btn:hover {
+  background-color: var(--text-main);
+  color: var(--text-white);
+}
 /* =========================================
    BLOCK: Hero Section
    ========================================= */
-.hero-block {
+  .hero-block {
   background-color: var(--brand-purple);
-  color: var(--text-white);
-  text-align: center;
   padding: 80px 20px;
 }
 
@@ -385,8 +418,24 @@ ul {
   font-size: 1.5rem;
   cursor: pointer;
   position: absolute;
-  right: 20px;
-  top: 20px;
+  left: 20px;
+  top: 25px;
+  padding: 5px;
+  z-index: 1100;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: var(--brand-purple);
+  margin: 5px 0;
+  transition: all 0.3s;
+}
+
+/* Adjust header layout for left menu */
+.header-inner {
+  position: relative;
 }
 
 .copyright {
