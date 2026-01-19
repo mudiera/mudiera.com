@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Mudiera/Mudiera.com
   branch: main
+  base_url: https://github-oauth.sveltia.io
 
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
