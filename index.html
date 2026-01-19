@@ -337,6 +337,13 @@
 
             if (searchInput) {
                 searchInput.addEventListener('input', filterBusinesses);
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault(); // Prevent form submission if in form
+                        filterBusinesses();
+                        searchInput.blur(); // Hide keyboard on mobile
+                    }
+                });
             }
 
             pills.forEach(pill => {

@@ -200,6 +200,13 @@
 
             if (searchInput) {
                 searchInput.addEventListener('input', filterBusinesses);
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        filterBusinesses();
+                        searchInput.blur();
+                    }
+                });
             }
 
             pills.forEach(pill => {

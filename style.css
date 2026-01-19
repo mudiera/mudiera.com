@@ -156,15 +156,59 @@ ul {
 @media (max-width: 991px) {
   .nav-toggle {
     display: block;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .logo-area {
+    margin-bottom: 0;
+    padding: 0 50px; /* Space for burger and add-btn */
+  }
+
+  .logo {
+    font-size: 2rem;
+  }
+
+  .tagline {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
   }
   
   .main-nav {
     display: none;
-    /* other mobile styles... */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
   }
 
   .main-nav.active {
     display: block;
+  }
+  
+  .header-inner {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+  }
+
+  .add-listing-btn {
+    padding: 8px 12px;
+    font-size: 0.7rem;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
   }
 }
 
