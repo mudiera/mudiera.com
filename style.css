@@ -1,11 +1,12 @@
 /* 
-  Mudiera Static Template Theme
-  Designed for easy CMS integration.
-  Edit variables in :root to change the site-wide theme.
+  =========================================
+  MUDIERA THEME CUSTOMIZATION
+  =========================================
+  Edit the colors below to change the look of the website.
 */
 
 :root {
-  /* Brand Colors */
+  /* Brand Colors - CHANGE THESE TO CUSTOMIZE */
   --primary: #C8A2C8;          /* Lilac */
   --accent: #D4AF37;           /* Gold */
   --brand-purple: #baabff;     /* Mudiera Pastel Purple */
@@ -635,9 +636,11 @@ ul {
     flex-direction: column;
     align-items: center;
     gap: 15px;
+    width: 100%;
+    margin-top: 20px;
   }
 
-  .nav-open .nav-list {
+  .main-nav.active .nav-list {
     display: flex;
   }
   .footer-grid {
