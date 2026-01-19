@@ -156,13 +156,14 @@ ul {
 @media (max-width: 991px) {
   .nav-toggle {
     display: block;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 25px;
+    left: 20px;
+    transform: none;
   }
 
   .logo-area {
     margin-bottom: 0;
-    padding: 0 50px; /* Space for burger and add-btn */
+    padding: 0;
   }
 
   .logo {
@@ -196,20 +197,34 @@ ul {
   }
   
   .header-inner {
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 15px 0;
   }
 
   .add-listing-btn {
-    padding: 8px 12px;
-    font-size: 0.7rem;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    white-space: nowrap;
+    display: none; /* Hide header button on mobile */
   }
+
+  .mobile-only-btn {
+    display: inline-block !important;
+    background-color: var(--text-white);
+    color: var(--brand-purple);
+    margin-bottom: 20px;
+    position: static;
+    transform: none;
+    width: auto;
+    font-size: 0.9rem;
+  }
+
+  .hero-block {
+    padding-top: 40px;
+  }
+}
+
+.mobile-only-btn {
+  display: none;
 }
 
 .add-listing-btn {
