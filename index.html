@@ -25,6 +25,8 @@
         })(window, document, "clarity", "script", "CLARITY_PROJECT_ID");
     </script>
     <link rel="stylesheet" href="style.css?v=2">
+    <!-- Load Data Object directly to avoid CORS/Fetch issues -->
+    <script src="businesses_data.js"></script>
 </head>
 <body>
 
@@ -278,35 +280,42 @@
             }
 
             function loadBusinesses() {
-                // Fetch from local JSON (acting as external database cache)
-                fetch('businesses.json?v=3')
-                    .then(response => {
-                        if (!response.ok) throw new Error('Network response was not ok');
-                        return response.json();
-                    })
-                    .then(data => {
-                        // Normalize data if needed (ensure consistent keys)
-                        const list = data.businesses || data;
-                        const businesses = list.map(item => ({
-                            id: item.id,
-                            name: item.name || item['Brand Name'],
-                            category: item.category || item['Category'] || 'Health & Beauty',
-                            description: item.description || item['Description / Speciality'] || '',
-                            location: item.location || item['Location'] || 'London',
-                            contact: item.contact || '',
-                            source: item.source || '',
-                            website: item.website || '',
-                            instagram: item.instagram || ''
-                        }));
-                        
-                        renderBusinesses(businesses);
-                        filterBusinesses();
-                    })
-                    .catch(error => {
-                        console.error('Error loading businesses data:', error);
-                        // Fallback or show error message
-                        if (grid) grid.innerHTML = '<p class="error-msg">Unable to load directory listings. Please try again later.</p>';
-                    });
+                // Use global data if available (fastest/safest), else fetch
+                if (window.businessData) {
+                    processAndRender(window.businessData);
+                } else {
+                    fetch('businesses.json?v=3')
+                        .then(response => {
+                            if (!response.ok) throw new Error('Network response was not ok');
+                            return response.json();
+                        })
+                        .then(data => {
+                            processAndRender(data);
+                        })
+                        .catch(error => {
+                            console.error('Error loading businesses data:', error);
+                            if (grid) grid.innerHTML = '<p class="error-msg">Unable to load directory listings. Please try again later.</p>';
+                        });
+                }
+            }
+
+            function processAndRender(data) {
+                // Normalize data if needed (ensure consistent keys)
+                const list = data.businesses || data;
+                const businesses = list.map(item => ({
+                    id: item.id,
+                    name: item.name || item['Brand Name'],
+                    category: item.category || item['Category'] || 'Health & Beauty',
+                    description: item.description || item['Description / Speciality'] || '',
+                    location: item.location || item['Location'] || 'London',
+                    contact: item.contact || '',
+                    source: item.source || '',
+                    website: item.website || '',
+                    instagram: item.instagram || ''
+                }));
+                
+                renderBusinesses(businesses);
+                filterBusinesses();
             }
 
             function filterBusinesses() {
