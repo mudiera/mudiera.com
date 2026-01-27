@@ -24,6 +24,8 @@
         })(window, document, "clarity", "script", "CLARITY_PROJECT_ID");
     </script>
     <link rel="stylesheet" href="style.css?v=2">
+    <!-- Load Data Object directly to avoid CORS issues locally -->
+    <script src="businesses_data.js"></script>
 </head>
 <body>
 
@@ -337,32 +339,51 @@
                 });
             }
 
-            // Fetch from local JSON
-            fetch('businesses.json?v=3')
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.json();
-                })
-                .then(data => {
-                    const list = data.businesses || data;
-                    const businesses = list.map(item => ({
-                        id: item.id,
-                        name: item.name || item['Brand Name'],
-                        category: item.category || item['Category'] || 'Health & Beauty',
-                        description: item.description || item['Description / Speciality'] || '',
-                        location: item.location || item['Location'] || 'London',
-                        contact: item.contact || '',
-                        source: item.source || '',
-                        website: item.website || '',
-                        instagram: item.instagram || ''
-                    }));
-                    renderBusinesses(businesses);
-                    filterBusinesses();
-                })
-                .catch(error => {
+            // Load from global variable (businesses_data.js) to support local file opening
+            function loadBusinesses() {
+                try {
+                    if (window.businessData) {
+                        const data = window.businessData;
+                        const list = data.businesses || data;
+                        const businesses = list.map(item => ({
+                            id: item.id,
+                            name: item.name || item['Brand Name'],
+                            category: item.category || item['Category'] || 'Health & Beauty',
+                            description: item.description || item['Description / Speciality'] || '',
+                            location: item.location || item['Location'] || 'London',
+                            contact: item.contact || '',
+                            source: item.source || '',
+                            website: item.website || '',
+                            instagram: item.instagram || ''
+                        }));
+                        renderBusinesses(businesses);
+                        filterBusinesses();
+                    } else {
+                        // Fallback to fetch if variable missing (unlikely if script included)
+                        fetch('businesses.json?v=3')
+                            .then(response => response.json())
+                            .then(data => {
+                                const list = data.businesses || data;
+                                // ... same mapping ...
+                                const businesses = list.map(item => ({
+                                    id: item.id,
+                                    name: item.name,
+                                    category: item.category,
+                                    description: item.description,
+                                    location: item.location
+                                }));
+                                renderBusinesses(businesses);
+                                filterBusinesses();
+                            })
+                            .catch(e => console.error(e));
+                    }
+                } catch (error) {
                     console.error('Error loading businesses data:', error);
                     if (grid) grid.innerHTML = '<p class="error-msg">Unable to load directory listings. Please try again later.</p>';
-                });
+                }
+            }
+
+            loadBusinesses();
 
             // Mobile Navigation Toggle
             const navToggle = document.querySelector('.nav-toggle');
