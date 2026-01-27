@@ -180,6 +180,7 @@
                 if (sourceCategory === 'Coaching') return 'Services';
                 if (sourceCategory === 'Female Fitness') return 'Services';
                 if (sourceCategory === 'Travel & Tourism') return 'Services';
+                if (sourceCategory === 'Travel') return 'Services';
                 return sourceCategory;
             }
 
@@ -278,7 +279,7 @@
 
             function loadBusinesses() {
                 // Fetch from local JSON (acting as external database cache)
-                fetch('businesses.json?v=2')
+                fetch('businesses.json?v=3')
                     .then(response => {
                         if (!response.ok) throw new Error('Network response was not ok');
                         return response.json();
@@ -334,6 +335,12 @@
                     } else {
                         card.classList.add('hidden');
                     }
+                });
+            }
+
+            if (searchBtn) {
+                searchBtn.addEventListener('click', function() {
+                    filterBusinesses();
                 });
             }
 

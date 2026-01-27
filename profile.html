@@ -229,9 +229,28 @@
                         phoneRow.style.display = 'none';
                     }
                     
-                    // Maps (optional placeholder logic)
-                    // If we had coordinates, we could update the iframe. 
-                    // For now, keep default or hide.
+                    // Maps
+                    if (business.location && business.location !== 'Online') {
+                        const encodedLoc = encodeURIComponent(business.location);
+                        mapEl.src = `https://maps.google.com/maps?q=${encodedLoc}&t=&z=13&ie=UTF8&iwloc=&output=embed`;
+                        
+                        // Add external link if not present
+                        let mapLink = document.getElementById('mapExternalLink');
+                        if (!mapLink) {
+                            mapLink = document.createElement('a');
+                            mapLink.id = 'mapExternalLink';
+                            mapLink.target = '_blank';
+                            mapLink.className = 'info-link';
+                            mapLink.style.display = 'block';
+                            mapLink.style.marginTop = '10px';
+                            mapLink.style.fontSize = '0.9rem';
+                            mapEl.parentNode.appendChild(mapLink);
+                        }
+                        mapLink.href = `https://www.google.com/maps/search/?api=1&query=${encodedLoc}`;
+                        mapLink.textContent = 'View on Google Maps';
+                    } else {
+                        document.querySelector('.map-placeholder').style.display = 'none';
+                    }
                 })
                 .catch(error => {
                     console.error('Error loading business profile:', error);

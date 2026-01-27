@@ -130,13 +130,69 @@
             const grid = document.getElementById('businessGrid');
             const searchInput = document.getElementById('searchInput');
             const categoryFilters = document.getElementById('categoryFilters');
+            const subcategoryWrapper = document.getElementById('subcategoryWrapper');
+            const subcategoryFilter = document.getElementById('subcategoryFilter');
             const pills = categoryFilters ? categoryFilters.querySelectorAll('.pill') : [];
+            const searchBtn = document.querySelector('.search-btn');
+
+            // Define Subcategories Taxonomy
+            const subcategories = {
+                'Health & Beauty': [
+                    { name: 'Hijama & Cupping', keywords: ['hijama', 'cupping', 'wet cupping', 'dry cupping'] },
+                    { name: 'Spa & Massage', keywords: ['spa', 'massage', 'hammam', 'sauna', 'relax'] },
+                    { name: 'Skincare', keywords: ['skin', 'face', 'facial', 'serum', 'oil', 'cream', 'balm'] },
+                    { name: 'Hair & Salon', keywords: ['hair', 'salon', 'cut', 'style', 'colour', 'dye'] },
+                    { name: 'Makeup', keywords: ['makeup', 'cosmetic', 'lipstick', 'foundation', 'beauty'] },
+                    { name: 'Fitness & Swimming', keywords: ['swim', 'pool', 'gym', 'fitness', 'yoga', 'pilates'] }
+                ],
+                'Food & Drinks': [
+                    { name: 'Restaurants', keywords: ['restaurant', 'dining', 'grill', 'curry', 'indian', 'persian', 'cuisine'] },
+                    { name: 'Cafes & Tea', keywords: ['cafe', 'coffee', 'tea', 'latte', 'breakfast', 'brunch'] },
+                    { name: 'Bakery & Desserts', keywords: ['bakery', 'cake', 'dessert', 'pastry', 'sweet', 'cookie'] },
+                    { name: 'Fast Food', keywords: ['burger', 'chicken', 'chips', 'pizza', 'fast food'] }
+                ],
+                'Shopping': [
+                    { name: 'Halal Meat', keywords: ['meat', 'butcher', 'poultry', 'lamb', 'beef'] },
+                    { name: 'Fashion & Clothing', keywords: ['clothing', 'abaya', 'hijab', 'dress', 'fashion', 'wear'] },
+                    { name: 'Gifts & Home', keywords: ['gift', 'candle', 'home', 'decor', 'scent'] }
+                ],
+                'Services': [
+                    { name: 'Financial', keywords: ['accountant', 'tax', 'finance', 'money'] },
+                    { name: 'Events & Catering', keywords: ['catering', 'event', 'wedding', 'party', 'decor'] },
+                    { name: 'Professional', keywords: ['consult', 'design', 'web', 'marketing', 'legal'] }
+                ],
+                'Travel': [
+                    { name: 'Retreats', keywords: ['retreat', 'wellness', 'getaway'] },
+                    { name: 'Tours & Guides', keywords: ['tour', 'guide', 'walk', 'sightseeing'] },
+                    { name: 'Group Travel', keywords: ['group', 'trip', 'adventure'] }
+                ]
+            };
+
+            function updateSubcategories(category) {
+                // Clear existing options
+                subcategoryFilter.innerHTML = '<option value="">All Subcategories</option>';
+                
+                if (subcategories[category]) {
+                    subcategoryWrapper.classList.add('visible');
+                    subcategories[category].forEach(sub => {
+                        const option = document.createElement('option');
+                        option.value = sub.name;
+                        option.textContent = sub.name;
+                        option.dataset.keywords = JSON.stringify(sub.keywords);
+                        subcategoryFilter.appendChild(option);
+                    });
+                } else {
+                    subcategoryWrapper.classList.remove('visible');
+                }
+            }
 
             function mapCategory(sourceCategory) {
                 if (sourceCategory === 'Fashion & Clothing') return 'Shopping';
                 if (sourceCategory === 'Coaching') return 'Services';
                 if (sourceCategory === 'Female Fitness') return 'Services';
                 if (sourceCategory === 'Travel & Tourism') return 'Services';
+                if (sourceCategory === 'Travel') return 'Services';
+                if (sourceCategory === 'Community & Education') return 'Community';
                 return sourceCategory;
             }
 
@@ -175,9 +231,32 @@
             function filterBusinesses() {
                 if (!grid) return;
                 const cards = grid.querySelectorAll('.card');
-                const searchTerm = searchInput.value.toLowerCase();
-                const activePill = categoryFilters.querySelector('.pill.active');
-                const activeCategory = activePill ? activePill.textContent.trim() : 'All';
+                const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+                
+                let activeCategory = 'All';
+                if (categoryFilters) {
+                    const activePill = categoryFilters.querySelector('.pill.active');
+                    if (activePill) activeCategory = activePill.textContent.trim();
+                }
+
+                // Subcategory Logic
+                let matchesSubcategory = true;
+                let subKeywords = [];
+                let selectedSubValue = '';
+                
+                if (subcategoryFilter) {
+                    selectedSubValue = subcategoryFilter.value;
+                    if (selectedSubValue && subcategoryFilter.selectedIndex >= 0) {
+                         const selectedSubOption = subcategoryFilter.options[subcategoryFilter.selectedIndex];
+                         if (selectedSubOption && selectedSubOption.dataset.keywords) {
+                             try {
+                                subKeywords = JSON.parse(selectedSubOption.dataset.keywords);
+                             } catch (e) {
+                                console.error('Error parsing keywords', e);
+                             }
+                         }
+                    }
+                }
 
                 cards.forEach(card => {
                     const title = card.querySelector('.card-title').textContent.toLowerCase();
@@ -186,13 +265,23 @@
                     const footerSpan = card.querySelector('.card-footer span');
                     const location = footerSpan ? footerSpan.textContent.toLowerCase() : '';
 
+                    // 1. Search Filter
                     const matchesSearch = title.includes(searchTerm) || 
                                           text.includes(searchTerm) || 
                                           location.includes(searchTerm);
                     
+                    // 2. Category Filter
                     const matchesCategory = activeCategory === 'All' || meta === activeCategory;
 
-                    if (matchesSearch && matchesCategory) {
+                    // 3. Subcategory Filter (Keyword Matching)
+                    if (selectedSubValue && subKeywords.length > 0) {
+                        const content = (title + ' ' + text).toLowerCase();
+                        matchesSubcategory = subKeywords.some(keyword => content.includes(keyword.toLowerCase()));
+                    } else {
+                        matchesSubcategory = true;
+                    }
+
+                    if (matchesSearch && matchesCategory && matchesSubcategory) {
                         card.classList.remove('hidden');
                     } else {
                         card.classList.add('hidden');
@@ -211,10 +300,26 @@
                 });
             }
 
+            if (searchBtn) {
+                searchBtn.addEventListener('click', function() {
+                    filterBusinesses();
+                    // Optional: Visual feedback or scroll
+                });
+            }
+
+            if (subcategoryFilter) {
+                subcategoryFilter.addEventListener('change', filterBusinesses);
+            }
+
             pills.forEach(pill => {
                 pill.addEventListener('click', function() {
                     pills.forEach(p => p.classList.remove('active'));
                     this.classList.add('active');
+                    
+                    // Update Subcategories based on selection
+                    const category = this.textContent.trim();
+                    updateSubcategories(category);
+                    
                     filterBusinesses();
                 });
             });
@@ -227,12 +332,13 @@
                     if (pill.textContent.trim() === initialCategory) {
                         pills.forEach(p => p.classList.remove('active'));
                         pill.classList.add('active');
+                        updateSubcategories(initialCategory); // Ensure subcats load
                     }
                 });
             }
 
             // Fetch from local JSON
-            fetch('businesses.json?v=2')
+            fetch('businesses.json?v=3')
                 .then(response => {
                     if (!response.ok) throw new Error('Network response was not ok');
                     return response.json();
