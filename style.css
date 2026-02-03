@@ -222,7 +222,7 @@ ul {
 }
 
 /* Mobile Nav Logic */
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .site-header {
     position: sticky;
     top: 0;
@@ -919,7 +919,7 @@ ul {
 /* =========================================
    BLOCK: Desktop Sidebar Navigation
    ========================================= */
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   body {
     padding-left: 280px;
   }
