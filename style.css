@@ -225,14 +225,26 @@ ul {
 @media (max-width: 991px) {
   .nav-toggle {
     display: block;
-    top: 25px;
-    left: 20px;
+    position: static; /* Stack vertically */
+    margin-bottom: 15px; /* Space below burger */
     transform: none;
+    order: -1; /* Move to top */
   }
 
   .logo-area {
-    margin-bottom: 0;
+    margin-bottom: 15px;
     padding: 0;
+    order: 0;
+  }
+
+  .add-listing-btn {
+    display: inline-block;
+    position: static;
+    margin-top: 0;
+    transform: none;
+    font-size: 0.8rem;
+    padding: 8px 16px;
+    order: 1; /* Move below logo */
   }
 
   .logo {
@@ -269,16 +281,7 @@ ul {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 15px 0;
-  }
-
-  .add-listing-btn {
-    display: inline-block; /* Show header button on mobile */
-    position: static; /* Remove absolute positioning */
-    margin-top: 15px; /* Add space below logo */
-    transform: none;
-    font-size: 0.8rem;
-    padding: 8px 16px;
+    padding: 20px 0;
   }
 
   .mobile-only-btn {
