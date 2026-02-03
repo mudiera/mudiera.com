@@ -227,6 +227,9 @@ ul {
     position: sticky;
     top: 0;
     z-index: 200000;
+    height: auto !important; /* Force auto height to stretch */
+    min-height: 80px;
+    padding: 0;
   }
 
   .header-inner {
@@ -235,6 +238,8 @@ ul {
     align-items: center;
     justify-content: flex-start;
     padding: 15px 0;
+    height: auto !important; /* Allow container to stretch */
+    width: 100%;
   }
 
   .nav-toggle {
