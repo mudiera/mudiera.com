@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.appendChild(overlay);
     
     // Timer logic
-    // Target date: 34 days from Feb 3, 2026 -> March 9, 2026
+    // Target date: March 14, 2026
     const targetDate = new Date('March 14, 2026 00:00:00').getTime();
 
     function updateTimer() {
@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const distance = targetDate - now;
 
         if (distance < 0) {
-            // Handle expired timer if needed, or just show 00
             return;
         }
 
@@ -59,7 +58,31 @@ document.addEventListener('DOMContentLoaded', function() {
         if (secondsEl) secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
     }
 
-    // Run immediately then every second
     updateTimer();
     const timerInterval = setInterval(updateTimer, 1000);
+
+    // Global Mobile Nav Logic (Close on Click)
+    const navToggle = document.querySelector('.nav-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    if (navToggle && mainNav) {
+        // Ensure toggle works (in case inline script is missing or overridden)
+        // We use a named function to avoid duplicate listeners if possible, but anonymous is fine for simple toggle
+        // To be safe, we can remove the inline script's listener by cloning the element, but that's aggressive.
+        // Instead, we just add the "close on click" behavior which is missing.
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+            });
+        });
+
+        // Optional: Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mainNav.contains(e.target) && !navToggle.contains(e.target) && mainNav.classList.contains('active')) {
+                mainNav.classList.remove('active');
+            }
+        });
+    }
 });
