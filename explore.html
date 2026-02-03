@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore | Mudiera</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+
+    <!-- =========================================
+         BLOCK: Header
+         ========================================= -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="logo-area">
+                <a href="index.html" class="logo">MUDIERA</a>
+                <p class="tagline">The London Edition</p>
+            </div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a href="https://forms.gle/xkeWJgE3K4SjjJht7" class="add-listing-btn" target="_blank">Add My Listing</a>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="directory.html" class="nav-link">Home</a></li>
+                    <li><a href="explore.html" class="nav-link">Explore</a></li>
+                    <li><a href="categories.html" class="nav-link">Categories</a></li>
+                    <li><a href="events.html" class="nav-link">Events</a></li>
+                    <li><a href="subscribe.html" class="nav-link">Subscribe</a></li>
+                    <li><a href="about.html" class="nav-link">About Us</a></li>
+                    <li><a href="careers.html" class="nav-link">Careers</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- =========================================
+         BLOCK: Explore Hero
+         ========================================= -->
+    <section class="explore-hero section-block">
+        <div class="container">
+            <h1 class="section-title">Explore What's Trending</h1>
+            <p class="section-subtitle">Discover the latest buzz, creators, and products in the Muslim women's community.</p>
+        </div>
+    </section>
+
+    <!-- =========================================
+         BLOCK: What's Hot This Week
+         ========================================= -->
+    <section class="whats-hot-block section-block">
+        <div class="container">
+            <h2 class="block-heading">What's Hot This Week 🔥</h2>
+            <div class="explore-grid" id="whatsHotGrid">
+                <!-- Content injected via JS -->
+                <div class="loading-state">Loading trends...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         BLOCK: Trending Creators
+         ========================================= -->
+    <section class="creators-block section-block">
+        <div class="container">
+            <h2 class="block-heading">Trending Creators ✨</h2>
+            <div class="creators-grid" id="creatorsGrid">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         BLOCK: Top Products
+         ========================================= -->
+    <section class="products-block section-block">
+        <div class="container">
+            <h2 class="block-heading">Top Products 🛍️</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         BLOCK: Community Buzz
+         ========================================= -->
+    <section class="buzz-block section-block">
+        <div class="container">
+            <h2 class="block-heading">Community Buzz 💬</h2>
+            <div class="buzz-list" id="buzzList">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================
+         BLOCK: Footer
+         ========================================= -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                
+                <!-- Brand Block -->
+                <div class="footer-brand">
+                    <h3>MUDIERA</h3>
+                    <p>The first ever Muslim women’s digital ecosystem bringing together halal aligned brands, services, and opportunities.</p>
+                </div>
+
+                <!-- Link Block 1 -->
+                <div>
+                    <h4 class="footer-heading">Sections</h4>
+                    <ul class="footer-links">
+                        <li><a href="categories.html">Categories</a></li>
+                        <li><a href="explore.html">Explore</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="directory.html">Home</a></li>
+                        <li><a href="subscribe.html">Subscribe</a></li>
+                    </ul>
+                </div>
+
+                <!-- Link Block 2 -->
+                <div>
+                    <h4 class="footer-heading">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Who is she?</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Block -->
+                <div>
+                    <h4 class="footer-heading">Newsletter</h4>
+                    <p class="newsletter-text">Subscribe for the latest updates.</p>
+                    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Template demo: Subscribed!');">
+                        <input type="email" placeholder="Your email address" class="newsletter-input" required>
+                        <button type="submit" class="btn-subscribe">Subscribe</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Mudiera. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile Nav Toggle
+            var toggle = document.querySelector('.nav-toggle');
+            if (toggle) {
+                toggle.addEventListener('click', function () {
+                    document.body.classList.toggle('nav-open');
+                });
+            }
+
+            // Fetch Trends Data
+            fetch('trends.json')
+                .then(response => response.json())
+                .then(data => {
+                    renderWhatsHot(data.whatsHot);
+                    renderCreators(data.trendingCreators);
+                    renderProducts(data.topProducts);
+                    renderBuzz(data.communityBuzz);
+                })
+                .catch(error => {
+                    console.error('Error loading trends:', error);
+                    document.getElementById('whatsHotGrid').innerHTML = '<p>Unable to load trending content at the moment.</p>';
+                });
+        });
+
+        function renderWhatsHot(items) {
+            const container = document.getElementById('whatsHotGrid');
+            if (!container || !items) return;
+            container.innerHTML = items.map(item => `
+                <article class="trend-card">
+                    <div class="trend-image" style="background-image: url('${item.image}')"></div>
+                    <div class="trend-content">
+                        <span class="trend-tag">${item.tag}</span>
+                        <div class="trend-stats">
+                            <span>${item.posts_count} posts</span>
+                            <span class="trend-growth">${item.growth}</span>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function renderCreators(items) {
+            const container = document.getElementById('creatorsGrid');
+            if (!container || !items) return;
+            container.innerHTML = items.map(item => `
+                <div class="creator-card">
+                    <img src="${item.avatar}" alt="${item.name}" class="creator-avatar">
+                    <h3 class="creator-name">${item.name}</h3>
+                    <p class="creator-handle">${item.handle}</p>
+                    <span class="creator-niche">${item.niche}</span>
+                </div>
+            `).join('');
+        }
+
+        function renderProducts(items) {
+            const container = document.getElementById('productsGrid');
+            if (!container || !items) return;
+            container.innerHTML = items.map(item => `
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="product-info">
+                        <h4 class="product-name">${item.name}</h4>
+                        <p class="product-brand">${item.brand}</p>
+                        <span class="product-price">${item.price}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderBuzz(items) {
+            const container = document.getElementById('buzzList');
+            if (!container || !items) return;
+            container.innerHTML = items.map(item => `
+                <div class="buzz-item">
+                    <div class="buzz-date">${item.date}</div>
+                    <div class="buzz-content">
+                        <span class="buzz-type">${item.type}</span>
+                        <h4 class="buzz-title">${item.title}</h4>
+                        <p class="buzz-desc">${item.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+    <script src="launch-timer.js"></script>
+</body>
+</html>

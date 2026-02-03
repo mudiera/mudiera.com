@@ -1,0 +1,115 @@
+{
+  "whatsHot": [
+    {
+      "id": 1,
+      "tag": "#HalalDiningLondon",
+      "posts_count": "12.5k",
+      "growth": "+15%",
+      "image": "https://placehold.co/400x300/F3E8FF/A855F7?text=Halal+Dining"
+    },
+    {
+      "id": 2,
+      "tag": "#MuslimWomenBusiness",
+      "posts_count": "8.2k",
+      "growth": "+22%",
+      "image": "https://placehold.co/400x300/F3E8FF/A855F7?text=Women+Business"
+    },
+    {
+      "id": 3,
+      "tag": "#ModestFashionWeek",
+      "posts_count": "45k",
+      "growth": "+8%",
+      "image": "https://placehold.co/400x300/F3E8FF/A855F7?text=Modest+Fashion"
+    },
+    {
+      "id": 4,
+      "tag": "#RamadanPrep2025",
+      "posts_count": "5k",
+      "growth": "+120%",
+      "image": "https://placehold.co/400x300/F3E8FF/A855F7?text=Ramadan+Prep"
+    }
+  ],
+  "trendingCreators": [
+    {
+      "id": 1,
+      "name": "Sarah Amin",
+      "handle": "@sarah.amin",
+      "niche": "Modest Fashion",
+      "avatar": "https://placehold.co/150x150/F3E8FF/A855F7?text=SA"
+    },
+    {
+      "id": 2,
+      "name": "Fatima Cooks",
+      "handle": "@fatima.cooks",
+      "niche": "Halal Recipes",
+      "avatar": "https://placehold.co/150x150/F3E8FF/A855F7?text=FC"
+    },
+    {
+      "id": 3,
+      "name": "Zainab Travels",
+      "handle": "@zainab.travels",
+      "niche": "Halal Travel",
+      "avatar": "https://placehold.co/150x150/F3E8FF/A855F7?text=ZT"
+    },
+    {
+      "id": 4,
+      "name": "Dr. Ayesha",
+      "handle": "@dr.ayesha",
+      "niche": "Wellness",
+      "avatar": "https://placehold.co/150x150/F3E8FF/A855F7?text=DA"
+    }
+  ],
+  "topProducts": [
+    {
+      "id": 1,
+      "name": "Silk Hijab Set",
+      "brand": "Veiled Collection",
+      "price": "£25.00",
+      "image": "https://placehold.co/300x300/F3E8FF/A855F7?text=Silk+Hijab"
+    },
+    {
+      "id": 2,
+      "name": "Halal Nail Polish",
+      "brand": "Mersi Cosmetics",
+      "price": "£12.00",
+      "image": "https://placehold.co/300x300/F3E8FF/A855F7?text=Nail+Polish"
+    },
+    {
+      "id": 3,
+      "name": "Prayer Mat",
+      "brand": "Tenfold",
+      "price": "£45.00",
+      "image": "https://placehold.co/300x300/F3E8FF/A855F7?text=Prayer+Mat"
+    },
+    {
+      "id": 4,
+      "name": "Organic Skincare Kit",
+      "brand": "Pure Muslimah",
+      "price": "£35.00",
+      "image": "https://placehold.co/300x300/F3E8FF/A855F7?text=Skincare"
+    }
+  ],
+  "communityBuzz": [
+    {
+      "id": 1,
+      "title": "Muslim Women Tech Summit",
+      "date": "Coming Soon",
+      "type": "Event",
+      "description": "Join the biggest tech gathering for Muslim women in London."
+    },
+    {
+      "id": 2,
+      "title": "Ramadan Market 2025",
+      "date": "Next Month",
+      "type": "Market",
+      "description": "Vendor applications are now open for the annual market."
+    },
+    {
+      "id": 3,
+      "title": "Book Club: 'The Muslim Woman'",
+      "date": "This Friday",
+      "type": "Meetup",
+      "description": "Discussing our latest read at the Central London Library."
+    }
+  ]
+}
