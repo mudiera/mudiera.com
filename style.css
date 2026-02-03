@@ -223,28 +223,48 @@ ul {
 
 /* Mobile Nav Logic */
 @media (max-width: 991px) {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 200000;
+  }
+
+  .header-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px 0;
+  }
+
   .nav-toggle {
     display: block;
-    position: static; /* Stack vertically */
-    margin-bottom: 15px; /* Space below burger */
-    transform: none;
-    order: -1; /* Move to top */
+    position: static;
+    margin-bottom: 10px;
+    order: 0;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px;
   }
 
   .logo-area {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     padding: 0;
-    order: 0;
+    order: 1;
+    text-align: center;
   }
 
   .add-listing-btn {
     display: inline-block;
     position: static;
-    margin-top: 0;
+    margin-top: 5px;
+    margin-bottom: 10px;
     transform: none;
     font-size: 0.8rem;
     padding: 8px 16px;
-    order: 1; /* Move below logo */
+    order: 2;
   }
 
   .logo {
@@ -258,10 +278,8 @@ ul {
   
   .main-nav {
     display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
+    width: 100%;
+    order: 3;
     background: white;
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
     z-index: 200001;
@@ -271,21 +289,15 @@ ul {
     flex-direction: column;
     padding: 20px;
     gap: 15px;
+    display: flex;
   }
 
   .main-nav.active {
     display: block;
   }
-  
-  .header-inner {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
-  }
 
   .mobile-only-btn {
-    display: none !important; /* Hide duplicate hero button */
+    display: none !important;
   }
 
   .hero-block {
