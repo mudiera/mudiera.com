@@ -273,18 +273,16 @@ ul {
   }
 
   .add-listing-btn {
-    display: none; /* Hide header button on mobile */
+    display: inline-block; /* Show header button on mobile */
+    position: static; /* Remove absolute positioning */
+    margin-top: 15px; /* Add space below logo */
+    transform: none;
+    font-size: 0.8rem;
+    padding: 8px 16px;
   }
 
   .mobile-only-btn {
-    display: inline-block !important;
-    background-color: var(--text-white);
-    color: var(--brand-purple);
-    margin-bottom: 20px;
-    position: static;
-    transform: none;
-    width: auto;
-    font-size: 0.9rem;
+    display: none !important; /* Hide duplicate hero button */
   }
 
   .hero-block {
