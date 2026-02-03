@@ -249,13 +249,6 @@ ul {
     padding: 5px;
   }
 
-  .logo-area {
-    margin-bottom: 10px;
-    padding: 0;
-    order: 1;
-    text-align: center;
-  }
-
   .add-listing-btn {
     display: inline-block;
     position: static;
@@ -264,7 +257,14 @@ ul {
     transform: none;
     font-size: 0.8rem;
     padding: 8px 16px;
-    order: 2;
+    order: 1; /* Move button to middle */
+  }
+
+  .logo-area {
+    margin-bottom: 10px;
+    padding: 0;
+    order: 2; /* Move logo to bottom */
+    text-align: center;
   }
 
   .logo {
