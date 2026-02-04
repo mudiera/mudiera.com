@@ -264,9 +264,19 @@ ul {
     margin: 0;
     background: transparent;
     border: none;
-    font-size: 1.5rem;
     cursor: pointer;
     padding: 5px;
+    z-index: 200002; /* Ensure it's on top */
+  }
+
+  /* Explicitly style the burger spans to be visible */
+  .nav-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--brand-purple); /* Ensure color is visible */
+    margin: 5px 0;
+    transition: all 0.3s;
   }
 
   /* Hide Header "Add Listing" Button on Mobile to clean up layout */
@@ -277,14 +287,17 @@ ul {
   /* Restore Hero "Add Listing" Button so CTA is still available */
   .mobile-only-btn {
     display: inline-block !important;
-    margin-top: 15px;
+    margin-top: 20px; /* More space from title */
+    margin-bottom: 20px;
     background-color: var(--brand-purple);
     color: white;
-    padding: 10px 25px;
+    padding: 12px 30px;
     border-radius: 50px;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 0.9rem;
+    position: relative; /* Ensure it flows in document */
+    width: auto;
   }
 
   /* Navigation Menu - Full Width Dropdown */
@@ -310,7 +323,8 @@ ul {
   }
 
   .hero-block {
-    padding-top: 40px;
+    padding-top: 60px; /* Increase padding to push content down */
+    text-align: center; /* Ensure hero content is centered */
   }
   
   .logo {
@@ -318,7 +332,10 @@ ul {
   }
   
   .tagline {
-    display: none; /* Hide tagline on mobile to save space */
+    display: block; /* Restore tagline */
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    margin-top: 2px;
   }
   
   .hero-title {
