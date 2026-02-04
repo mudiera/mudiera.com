@@ -221,32 +221,47 @@ ul {
   color: var(--brand-deep);
 }
 
-/* Mobile Nav Logic */
+/* =========================================
+   BLOCK: Mobile Nav Logic (Grid Layout: Logo Center, Burger Right)
+   ========================================= */
 @media (max-width: 991px) {
   .site-header {
     position: sticky;
     top: 0;
     z-index: 200000;
-    height: auto !important; /* Force auto height to stretch */
-    min-height: 80px;
-    padding: 0;
+    height: auto !important;
+    padding: 10px 0;
+    background-color: rgba(255, 255, 255, 0.98);
   }
 
   .header-inner {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; /* Left, Center, Right */
     align-items: center;
-    justify-content: flex-start;
-    padding: 15px 0;
-    height: auto !important; /* Allow container to stretch */
+    padding: 0 20px;
     width: 100%;
+    height: auto !important;
   }
 
+  /* Left Side: Empty for now (or could hold Add Button) */
+  /* We simply let the grid columns distribute space */
+
+  /* Center: Logo */
+  .logo-area {
+    grid-column: 2;
+    margin: 0;
+    text-align: center;
+    padding: 0;
+    width: auto;
+  }
+
+  /* Right: Burger Menu */
   .nav-toggle {
+    grid-column: 3;
+    justify-self: end;
     display: block;
     position: static;
-    margin-bottom: 10px;
-    order: 0;
+    margin: 0;
     background: transparent;
     border: none;
     font-size: 1.5rem;
@@ -254,40 +269,37 @@ ul {
     padding: 5px;
   }
 
+  /* Hide Header "Add Listing" Button on Mobile to clean up layout */
   .add-listing-btn {
-    display: inline-block;
-    position: static;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    transform: none;
-    font-size: 0.8rem;
-    padding: 8px 16px;
-    order: 1; /* Move button to middle */
+    display: none;
   }
 
-  .logo-area {
-    margin-bottom: 10px;
-    padding: 0;
-    order: 2; /* Move logo to bottom */
-    text-align: center;
+  /* Restore Hero "Add Listing" Button so CTA is still available */
+  .mobile-only-btn {
+    display: inline-block !important;
+    margin-top: 15px;
+    background-color: var(--brand-purple);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
   }
 
-  .logo {
-    font-size: 2rem;
-  }
-
-  .tagline {
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-  }
-  
+  /* Navigation Menu - Full Width Dropdown */
   .main-nav {
     display: none;
+    grid-column: 1 / -1; /* Span full width */
     width: 100%;
-    order: 3;
+    margin-top: 15px;
     background: white;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-    z-index: 200001;
+    border-top: 1px solid #f3f4f6;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  }
+
+  .main-nav.active {
+    display: block;
   }
 
   .nav-list {
@@ -297,16 +309,30 @@ ul {
     display: flex;
   }
 
-  .main-nav.active {
-    display: block;
-  }
-
-  .mobile-only-btn {
-    display: none !important;
-  }
-
   .hero-block {
     padding-top: 40px;
+  }
+  
+  .logo {
+    font-size: 1.8rem; /* Slightly smaller for mobile fit */
+  }
+  
+  .tagline {
+    display: none; /* Hide tagline on mobile to save space */
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .footer-grid {
+    text-align: center;
+  }
+  .two-column {
+    flex-direction: column;
+  }
+  .profile-layout {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -885,41 +911,7 @@ ul {
   background-color: var(--text-main);
 }
 
-@media (max-width: 991px) {
-  .logo {
-    font-size: 2.2rem;
-  }
-  
-  .hero-title {
-    font-size: 2rem;
-  }
-  
-  .nav-toggle {
-    display: block;
-  }
-
-  .nav-list {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-    margin-top: 20px;
-  }
-
-  .main-nav.active .nav-list {
-    display: flex;
-  }
-  .footer-grid {
-    text-align: center;
-  }
-  .two-column {
-    flex-direction: column;
-  }
-  .profile-layout {
-    grid-template-columns: 1fr;
-  }
-}
+/* Mobile overrides handled in main block now */
 
 /* =========================================
    BLOCK: Desktop Sidebar Navigation
