@@ -222,7 +222,7 @@ ul {
 }
 
 /* =========================================
-   BLOCK: Mobile Nav Logic (Vertical Stack: Burger -> Logo -> Button)
+   BLOCK: Mobile Nav Logic (Tablet/Large Phone: 581px - 991px)
    ========================================= */
 @media (max-width: 991px) {
   .site-header {
@@ -235,117 +235,78 @@ ul {
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   }
 
+  /* Default Flex Column for Tablet (works fine there) */
   .header-inner {
     display: flex;
-    flex-direction: column; /* STACK VERTICALLY */
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 0 20px;
     width: 100%;
     height: auto !important;
-    gap: 15px; /* Space between stacked items */
+    gap: 15px;
   }
+  
+  /* Shared Mobile Styles */
+  .logo { font-size: 2rem; line-height: 1; margin-bottom: 5px; }
+  .tagline { display: block !important; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--text-muted); }
+  .nav-toggle { display: flex; flex-direction: column; justify-content: space-between; width: 30px; height: 20px; background: transparent; border: none; cursor: pointer; padding: 0; z-index: 200002; }
+  .nav-toggle span { display: block; width: 100%; height: 3px; background-color: var(--brand-dark); border-radius: 2px; }
+  .add-listing-btn { display: inline-block; font-size: 0.8rem; padding: 8px 20px; width: auto; }
+  .mobile-only-btn { display: none !important; }
+  .main-nav { display: none; width: 100%; margin-top: 20px; background: white; border-top: 1px solid #f3f4f6; }
+  .main-nav.active { display: block; }
+  .nav-list { flex-direction: column; padding: 20px; gap: 20px; display: flex; }
+  .hero-block { padding-top: 40px; text-align: center; }
+  .footer-grid { text-align: center; }
+  .two-column { flex-direction: column; }
+  .profile-layout { grid-template-columns: 1fr; }
+}
 
-  /* 1. Top: Burger Menu */
+/* =========================================
+   BLOCK: Small Screen Specific Logic (< 580px)
+   FORCE GRID STACKING TO PREVENT OVERLAP
+   ========================================= */
+@media (max-width: 580px) {
+  .header-inner {
+    display: grid !important; /* Force Grid */
+    grid-template-columns: 1fr; /* Single Column */
+    grid-template-rows: auto auto auto auto; /* Explicit rows for Burger, Logo, Button, Nav */
+    gap: 15px; /* Forced Gap */
+    justify-items: center; /* Center everything horizontally */
+    align-items: center;
+    padding: 10px 0;
+}
+
+  /* 1. Burger (Row 1) */
   .nav-toggle {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 20px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    z-index: 200002;
-    position: static;
-    order: 0; /* First */
+    grid-row: 1;
     margin-bottom: 5px;
+    /* Ensure it has space */
+    height: 30px; 
+    width: 40px;
+    align-items: center;
+    justify-content: space-evenly;
   }
 
-  .nav-toggle span {
-    display: block;
-    width: 100%;
-    height: 3px;
-    background-color: var(--brand-dark);
-    border-radius: 2px;
-  }
-
-  /* 2. Middle: Logo & Tagline */
+  /* 2. Logo Area (Row 2) */
   .logo-area {
-    order: 1; /* Second */
-    margin: 0;
-    text-align: center;
-    width: auto;
+    grid-row: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 10px 0; /* Add explicit margin */
   }
 
-  .logo {
-    font-size: 2rem;
-    line-height: 1;
-    margin-bottom: 5px;
-  }
-
-  .tagline {
-    display: block !important;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    color: var(--text-muted);
-  }
-
-  /* 3. Bottom: Add Listing Button (Header) */
+  /* 3. Button (Row 3) */
   .add-listing-btn {
-    display: inline-block; /* Visible in header again */
-    order: 2; /* Third */
-    position: static;
-    margin: 0;
-    transform: none;
-    font-size: 0.8rem;
-    padding: 8px 20px;
-    width: auto;
+    grid-row: 3;
+    margin-top: 5px;
   }
 
-  /* Hide Hero Button since we have it in header now (optional, but avoids duplication) */
-  .mobile-only-btn {
-    display: none !important;
-  }
-
-  .hero-block {
-    padding-top: 40px;
-    text-align: center;
-  }
-
-  /* Navigation Menu */
+  /* 4. Nav (Row 4) */
   .main-nav {
-    display: none;
-    order: 3; /* Last */
-    width: 100%;
-    margin-top: 20px;
-    background: white;
-    border-top: 1px solid #f3f4f6;
-  }
-
-  .main-nav.active {
-    display: block;
-  }
-
-  .nav-list {
-    flex-direction: column;
-    padding: 20px;
-    gap: 20px;
-    display: flex;
-  }
-  
-  .footer-grid {
-    text-align: center;
-  }
-  .two-column {
-    flex-direction: column;
-  }
-  .profile-layout {
-    grid-template-columns: 1fr;
+    grid-row: 4;
   }
 }
 
