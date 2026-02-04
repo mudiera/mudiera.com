@@ -271,22 +271,23 @@ ul {
   .header-inner {
     display: grid !important; /* Force Grid */
     grid-template-columns: 1fr; /* Single Column */
-    grid-template-rows: auto auto auto auto; /* Explicit rows for Burger, Logo, Button, Nav */
-    gap: 15px; /* Forced Gap */
+    grid-template-rows: min-content min-content min-content auto; /* Explicit rows based on content size */
+    gap: 20px; /* Increased Gap */
     justify-items: center; /* Center everything horizontally */
     align-items: center;
-    padding: 10px 0;
+    padding: 20px 0;
+    height: auto !important;
+    width: 100% !important;
 }
 
   /* 1. Burger (Row 1) */
   .nav-toggle {
     grid-row: 1;
-    margin-bottom: 5px;
-    /* Ensure it has space */
-    height: 30px; 
-    width: 40px;
-    align-items: center;
-    justify-content: space-evenly;
+    margin-bottom: 0;
+    height: auto; 
+    width: auto;
+    padding: 10px;
+    position: static;
   }
 
   /* 2. Logo Area (Row 2) */
@@ -295,18 +296,23 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 10px 0; /* Add explicit margin */
+    margin: 0;
+    width: 100%;
   }
 
   /* 3. Button (Row 3) */
   .add-listing-btn {
     grid-row: 3;
-    margin-top: 5px;
+    margin: 0;
+    width: auto;
+    white-space: nowrap;
   }
 
   /* 4. Nav (Row 4) */
   .main-nav {
     grid-row: 4;
+    width: 100%;
+    margin-top: 10px;
   }
 }
 
