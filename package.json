@@ -1,0 +1,25 @@
+{
+  "name": "muslim-women-magazine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "merge_data.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mudiera/Mudiera.com.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Mudiera/Mudiera.com/issues"
+  },
+  "homepage": "https://github.com/Mudiera/Mudiera.com#readme",
+  "dependencies": {
+    "json2csv": "^6.0.0-alpha.2",
+    "xlsx": "^0.18.5"
+  }
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudiera | Launching Soon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Overrides for standalone page */
+        body {
+            background-color: var(--brand-lilac); /* Give it a background so the overlay effect is visible if kept, or just as a base */
+            background-image: url('https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&q=80&w=2000'); /* Optional: Nice background image */
+            background-size: cover;
+            background-position: center;
+        }
+        .launch-overlay {
+            /* Ensure it covers the page */
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="launch-overlay">
+        <div class="launch-content">
+            <div class="logo-area">
+                <span class="logo">MUDIERA</span>
+                <p class="tagline">The London Edition</p>
+            </div>
+            <h1>We Are Launching In</h1>
+            <div id="countdown" class="countdown">
+                <div class="time-unit">
+                    <span id="days">00</span>
+                    <label>Days</label>
+                </div>
+                <div class="time-unit">
+                    <span id="hours">00</span>
+                    <label>Hours</label>
+                </div>
+                <div class="time-unit">
+                    <span id="minutes">00</span>
+                    <label>Minutes</label>
+                </div>
+                <div class="time-unit">
+                    <span id="seconds">00</span>
+                    <label>Seconds</label>
+                </div>
+            </div>
+            <p style="font-size: 1.2rem; color: var(--text-muted); margin-top: 1rem;">Witness the Muslim Digiverse bloom and flourish.</p>
+        </div>
+    </div>
+
+    <script>
+        // Target date: March 14, 2026
+        const targetDate = new Date('March 14, 2026 00:00:00').getTime();
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+
+            if (daysEl) daysEl.innerText = days < 10 ? '0' + days : days;
+            if (hoursEl) hoursEl.innerText = hours < 10 ? '0' + hours : hours;
+            if (minutesEl) minutesEl.innerText = minutes < 10 ? '0' + minutes : minutes;
+            if (secondsEl) secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    </script>
+</body>
+</html>
