@@ -306,6 +306,8 @@ ul {
     margin: 0;
     width: auto;
     white-space: nowrap;
+    position: static; /* Override absolute positioning */
+    transform: none;
   }
 
   /* 4. Nav (Row 4) */
